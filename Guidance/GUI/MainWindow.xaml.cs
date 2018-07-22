@@ -162,13 +162,9 @@ namespace Guidance
             }
         }
 
-        private void addFlashCardListBoxItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void flashCardMenuListBoxItem_Selected(object sender, RoutedEventArgs e)
         {
-            //var window = new FlashCardEditorWindow(this);
-            //window.Show();
-            //this.Hide();
             mainFrame.Content = new FlashCardEditorPage();
-
         }
     }
 }

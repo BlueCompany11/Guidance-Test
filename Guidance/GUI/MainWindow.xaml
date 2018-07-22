@@ -41,26 +41,30 @@
                     <Label.LayoutTransform>
                         <ScaleTransform ScaleX="2" ScaleY="2" />
                     </Label.LayoutTransform>
-                    Witaj ponownie jak dodac dynamic resource tutaj
+                    Sample text
                 </Label>
-                <GroupBox Grid.Row="1" Grid.Column="0" Background="White" Header="Fiszki">
-                    <ListBox>
-                        <ListBoxItem Name="addFlashCardListBoxItem" MouseDoubleClick="addFlashCardListBoxItem_MouseDoubleClick">Dodaj</ListBoxItem>
-                        <ListBoxItem>Edytuj</ListBoxItem>
-                        <ListBoxItem>Usuń</ListBoxItem>
-                    </ListBox>
+                <GroupBox Grid.Row="1" Grid.Column="0" Background="White" Header="Nauka">
+                    <ScrollViewer>
+                        <ListBox>
+                            <ListBoxItem Name="flashCardMenuListBoxItem" Selected="flashCardMenuListBoxItem_Selected">Fiszki</ListBoxItem>
+                        </ListBox>
+                    </ScrollViewer>
                 </GroupBox>
-                <GroupBox Grid.Row="2" Grid.Column="0" Background="White" Header="Niedawne">
-                    <ListBox>
-                        <ListBoxItem>Artykuł #1</ListBoxItem>
-                        <ListBoxItem>Artykuł #2</ListBoxItem>
-                    </ListBox>
+                <GroupBox Grid.Row="2" Grid.Column="0" Background="White" Header="Organizer">
+                    <ScrollViewer>
+                        <ListBox>
+                            <ListBoxItem>Pusta opcja 1</ListBoxItem>
+                            <ListBoxItem>Pusta opcja 2</ListBoxItem>
+                        </ListBox>
+                    </ScrollViewer>
                 </GroupBox>
                 <GroupBox Grid.Row="3" Grid.Column="0" Background="White" Header="Opcje">
-                    <ListBox>
-                        <ListBoxItem>Artykuł #1</ListBoxItem>
-                        <ListBoxItem>Artykuł #2</ListBoxItem>
-                    </ListBox>
+                    <ScrollViewer>
+                        <ListBox>
+                            <ListBoxItem>Pusta opcja 1</ListBoxItem>
+                            <ListBoxItem>Pusta opcja 2</ListBoxItem>
+                        </ListBox>
+                    </ScrollViewer>
                 </GroupBox>
                 <Frame Name="mainFrame" Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" Background="White" Margin="10" />
             </Grid>

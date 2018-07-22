@@ -54,19 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="GUI\AddFlashCardWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\EditFlashCardWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="GUI\FlashCardEditorPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\FlashCardEditorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -82,17 +70,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GUI\AddFlashCardWindow.xaml.cs">
-      <DependentUpon>AddFlashCardWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\EditFlashCardWindow.xaml.cs">
-      <DependentUpon>EditFlashCardWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="GUI\FlashCardEditorPage.xaml.cs">
       <DependentUpon>FlashCardEditorPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\FlashCardEditorWindow.xaml.cs">
-      <DependentUpon>FlashCardEditorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\LogInWindow.xaml.cs">
       <DependentUpon>LogInWindow.xaml</DependentUpon>

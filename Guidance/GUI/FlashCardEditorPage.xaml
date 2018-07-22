@@ -12,7 +12,7 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*"/>
-                <ColumnDefinition />
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="10*"/>
@@ -35,6 +35,16 @@
                 <Button Content="Dodaj" Grid.Column="0" Margin="10"/>
                 <Button Content="Edytuj" Grid.Column="1" Margin="10"/>
                 <Button Content="Usuń" Grid.Column="2" Margin="10"/>
+            </Grid>
+            <Grid Grid.Column="1">
+                <StackPanel Orientation="Vertical">
+                    <Button>
+                        Rozpocznij test
+                    </Button>
+                    <Button>
+                        
+                    </Button>
+                </StackPanel>
             </Grid>
         </Grid>
     </Grid>
