@@ -62,15 +62,7 @@
                         <ListBoxItem>Artykuł #2</ListBoxItem>
                     </ListBox>
                 </GroupBox>
-                <GroupBox Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" Background="White" 
-                          Header="Zaczynamy">
-                    <ListBox>
-                        <ListBoxItem>Artykuł #1</ListBoxItem>
-                        <ListBoxItem>Artykuł #2</ListBoxItem>
-                        <ListBoxItem>Artykuł #3</ListBoxItem>
-                        <ListBoxItem>Artykuł #4</ListBoxItem>
-                    </ListBox>
-                </GroupBox>
+                <Frame Name="mainFrame" Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" Background="White" Margin="10" />
             </Grid>
             <Grid Name="layer1" Visibility="Collapsed">
                 <Grid.ColumnDefinitions>

@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Guidance.GUI
 {
     /// <summary>
-    /// Interaction logic for FlashCardEditorWindow.xaml
+    /// Interaction logic for FlashCardEditorPage.xaml
     /// </summary>
-    public partial class FlashCardEditorWindow : Window
+    public partial class FlashCardEditorPage : Page
     {
-        public FlashCardEditorWindow()
+        public FlashCardEditorPage()
         {
             InitializeComponent();
         }

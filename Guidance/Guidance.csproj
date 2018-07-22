@@ -62,6 +62,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GUI\FlashCardEditorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\FlashCardEditorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -83,6 +87,9 @@
     </Compile>
     <Compile Include="GUI\EditFlashCardWindow.xaml.cs">
       <DependentUpon>EditFlashCardWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\FlashCardEditorPage.xaml.cs">
+      <DependentUpon>FlashCardEditorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\FlashCardEditorWindow.xaml.cs">
       <DependentUpon>FlashCardEditorWindow.xaml</DependentUpon>

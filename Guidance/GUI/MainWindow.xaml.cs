@@ -164,9 +164,10 @@ namespace Guidance
 
         private void addFlashCardListBoxItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var window = new FlashCardEditorWindow(this);
-            window.Show();
-            this.Hide();
+            //var window = new FlashCardEditorWindow(this);
+            //window.Show();
+            //this.Hide();
+            mainFrame.Content = new FlashCardEditorPage();
 
         }
     }
