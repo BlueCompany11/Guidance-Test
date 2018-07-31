@@ -32,7 +32,7 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Button Content="Dodaj" Grid.Column="0" Margin="10"/>
+                <Button x:Name="AddFlashCardButton" Content="Dodaj" Grid.Column="0" Margin="10" Click="AddFlashCardButton_Click"/>
                 <Button Content="Edytuj" Grid.Column="1" Margin="10"/>
                 <Button Content="Usuń" Grid.Column="2" Margin="10"/>
             </Grid>

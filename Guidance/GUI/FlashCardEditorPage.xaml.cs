@@ -24,5 +24,13 @@ namespace Guidance.GUI
         {
             InitializeComponent();
         }
+
+        private void AddFlashCardButton_Click(object sender, RoutedEventArgs e)
+        {
+            var addFlashCardWindow = new AddFlashCardWindow();
+            addFlashCardWindow.ShowDialog();
+
+        }
     }
+
 }
