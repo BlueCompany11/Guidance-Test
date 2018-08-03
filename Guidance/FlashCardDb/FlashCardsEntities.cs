@@ -1,4 +1,4 @@
-namespace Guidance
+namespace Guidance.FlashCardDb
 {
     using System;
     using System.Data.Entity;

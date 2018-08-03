@@ -1,4 +1,4 @@
-namespace Guidance
+namespace Guidance.FlashCardDb
 {
     using System;
     using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace Guidance
 
         [Column("FileAnserw")]
         [Required]
-        public byte[] FileAnserw1 { get; set; }
+        public byte[] File { get; set; }
 
         public virtual FlashCard FlashCard { get; set; }
     }

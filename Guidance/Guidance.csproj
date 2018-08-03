@@ -63,19 +63,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataAccessLayer\FlashCardDAL.cs" />
     <Compile Include="FlashCardDb\AllAnserwsFlashCard.cs" />
     <Compile Include="FlashCardDb\FlashCardData.cs" />
     <Compile Include="FlashCardDb\TextAnserw.cs" />
+    <Compile Include="IView\IFlashCardPreview.cs" />
+    <Compile Include="ViewModel\FlashCardPreview.cs" />
+    <Compile Include="ViewModel\FlashCardReader.cs" />
     <Compile Include="ViewModel\FlashCardVM.cs" />
     <Page Include="GUI\AddFlashCardWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\FlashCardEditorPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\LogInWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -95,9 +95,6 @@
     </Compile>
     <Compile Include="GUI\FlashCardEditorPage.xaml.cs">
       <DependentUpon>FlashCardEditorPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\LogInWindow.xaml.cs">
-      <DependentUpon>LogInWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

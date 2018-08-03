@@ -4,11 +4,15 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Guidance.GUI"
+      xmlns:vm="clr-namespace:Guidance.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="FlashCardEditorPage">
 
     <Grid>
+        <Grid.Resources>
+            <vm:FlashCardReader x:Key="FlashCardDataView" ></vm:FlashCardReader>
+        </Grid.Resources>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*"/>
@@ -18,14 +22,9 @@
                 <RowDefinition Height="10*"/>
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <ListView Name="flashCardNameListView">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Nazwa" DisplayMemberBinding="{Binding Title}"/>
-                        <GridViewColumn Header="Tagi" DisplayMemberBinding="{Binding Tags}"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+            
+            <DataGrid Name="showFlashCardsControl" ItemsSource="{Binding Source={StaticResource FlashCardDataView}, Path=FlashCards}">
+            </DataGrid>
             <Grid Grid.Column="0" Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />

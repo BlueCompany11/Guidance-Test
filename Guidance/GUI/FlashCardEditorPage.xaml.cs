@@ -29,7 +29,6 @@ namespace Guidance.GUI
         {
             var addFlashCardWindow = new AddFlashCardWindow();
             addFlashCardWindow.ShowDialog();
-
         }
     }
 
