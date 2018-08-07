@@ -15,7 +15,7 @@ namespace Guidance.ViewModel
         public ObservableCollection<FlashCardPreview> FlashCards { get; private set; } = new ObservableCollection<FlashCardPreview>();
         public FlashCardReader()
         {
-            //FillFlashCards();
+            FillFlashCards();
         }
         private void FillFlashCards()
         {

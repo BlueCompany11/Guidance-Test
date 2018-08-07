@@ -26,10 +26,10 @@ namespace Guidance.GUI
         {
             InitializeComponent();
         }
-        public FlashCardEditorPage(IFlashCardView newFlashCardView) : base()
+        public FlashCardEditorPage(IFlashCardView newFlashCardView) : this()
         {
             flashCardView = newFlashCardView;
-            //showFlashCardsControl.ItemsSource = flashCardView.FlashCards;
+            showFlashCardsControl.ItemsSource = flashCardView.FlashCards;
         }
 
         private void AddFlashCardButton_Click(object sender, RoutedEventArgs e)
