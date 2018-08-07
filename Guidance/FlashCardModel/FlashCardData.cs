@@ -10,7 +10,6 @@ namespace Guidance.FlashCardModel
     public partial class FlashCardData
     {
         [Key]
-        [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int FlashCardId { get; set; }
 
@@ -21,8 +20,7 @@ namespace Guidance.FlashCardModel
 
         public int? SuccessfulAnserws { get; set; }
 
-        [Key]
-        [Column(Order = 1, TypeName = "date")]
+        [Column(TypeName = "date")]
         public DateTime CreationDate { get; set; }
 
         public virtual FlashCard FlashCard { get; set; }

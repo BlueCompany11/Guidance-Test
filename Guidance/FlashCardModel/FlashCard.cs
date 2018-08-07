@@ -11,7 +11,8 @@ namespace Guidance.FlashCardModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public FlashCard()
         {
-            FlashCardDatas = new HashSet<FlashCardData>();
+            FileAnserws = new HashSet<FileAnserw>();
+            TextAnserws = new HashSet<TextAnserw>();
         }
 
         public int Id { get; set; }
@@ -23,11 +24,12 @@ namespace Guidance.FlashCardModel
         [Required]
         public string Tags { get; set; }
 
-        public virtual FileAnserw FileAnserw { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FileAnserw> FileAnserws { get; set; }
+
+        public virtual FlashCardData FlashCardData { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FlashCardData> FlashCardDatas { get; set; }
-
-        public virtual TextAnserw TextAnserw { get; set; }
+        public virtual ICollection<TextAnserw> TextAnserws { get; set; }
     }
 }

@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Guidance.DataAccessLayer; //do usuniecia
+using Guidance.FlashCardModel;  //do usuniecia
 using Guidance.IViewModel;
 
 namespace Guidance.GUI
@@ -36,7 +38,13 @@ namespace Guidance.GUI
         {
             var addFlashCardWindow = new AddFlashCardWindow();
             addFlashCardWindow.ShowDialog();
+        }
 
+        private void test1(object sender, RoutedEventArgs e)
+        {
+            FlashCardRepository flashCardRepository = new FlashCardRepository();
+            var flashCard = new FlashCard { Title = "nowy test1", Tags = "#123" };
+            flashCardRepository.Add(flashCard);
         }
     }
 

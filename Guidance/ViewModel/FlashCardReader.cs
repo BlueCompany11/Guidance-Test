@@ -7,9 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Guidance.DataAccessLayer;
 using Guidance.IViewModel;
+using PropertyChanged;
 
 namespace Guidance.ViewModel
 {
+    [AddINotifyPropertyChangedInterface]
     public class FlashCardReader:IFlashCardView
     {
         public ObservableCollection<FlashCardPreview> FlashCards { get; private set; } = new ObservableCollection<FlashCardPreview>();

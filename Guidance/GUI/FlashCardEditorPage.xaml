@@ -32,7 +32,7 @@
             </Grid>
             <Grid Grid.Column="1">
                 <StackPanel Orientation="Vertical">
-                    <Button>
+                    <Button Click="test1" >
                         Rozpocznij test
                     </Button>
                     <Button>

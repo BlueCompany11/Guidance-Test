@@ -12,9 +12,8 @@ namespace Guidance.IViewModel
         string Title { get; set; }
         List<string> Tags { get; set; }
         string TextAnserw { get; set; }
-        List<byte[]> PictureAnserws { get; set; }
+        List<byte[]> FileAnserws { get; set; }
         void AddTag(string input);
-        void AddPicture();
-        void Save();
+        void AddFile();
     }
 }

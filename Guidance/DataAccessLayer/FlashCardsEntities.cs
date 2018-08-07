@@ -13,10 +13,9 @@ namespace Guidance.DataAccessLayer
         }
 
         public virtual DbSet<FileAnserw> FileAnserws { get; set; }
+        public virtual DbSet<FlashCardData> FlashCardDatas { get; set; }
         public virtual DbSet<FlashCard> FlashCards { get; set; }
         public virtual DbSet<TextAnserw> TextAnserws { get; set; }
-        public virtual DbSet<FlashCardData> FlashCardDatas { get; set; }
-        public virtual DbSet<AllAnserwsFlashCard> AllAnserwsFlashCards { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -25,21 +24,18 @@ namespace Guidance.DataAccessLayer
                 .IsUnicode(false);
 
             modelBuilder.Entity<FlashCard>()
-                .HasOptional(e => e.FileAnserw)
-                .WithRequired(e => e.FlashCard);
-
-            modelBuilder.Entity<FlashCard>()
-                .HasMany(e => e.FlashCardDatas)
+                .HasMany(e => e.FileAnserws)
                 .WithRequired(e => e.FlashCard)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<FlashCard>()
-                .HasOptional(e => e.TextAnserw)
+                .HasOptional(e => e.FlashCardData)
                 .WithRequired(e => e.FlashCard);
 
-            modelBuilder.Entity<AllAnserwsFlashCard>()
-                .Property(e => e.Tags)
-                .IsUnicode(false);
+            modelBuilder.Entity<FlashCard>()
+                .HasMany(e => e.TextAnserws)
+                .WithRequired(e => e.FlashCard)
+                .WillCascadeOnDelete(false);
         }
     }
 }

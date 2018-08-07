@@ -44,14 +44,14 @@
                 <GroupBox  Header="Odpowiedź tekstowa">
                     <TextBox Text="{Binding Path=TextAnserw}"></TextBox>
                 </GroupBox>
-                <Button Grid.Row="1" Margin="10,10,0,81" HorizontalAlignment="Left" VerticalAlignment="Center" Click="Button_Click">Dodaj plik</Button>
+                <Button Grid.Row="1" Margin="10,10,0,81" HorizontalAlignment="Left" VerticalAlignment="Center" Click="AddFile_Click">Dodaj plik</Button>
             </Grid>
             <Grid Grid.Row="2" Grid.ColumnSpan="2">
                 <ListView>
 
                 </ListView>
             </Grid>
-            <Button Grid.Row="3" Margin="10" Click="Button_Click_1">Dodaj fiszke</Button>
+            <Button Grid.Row="3" Margin="10" Click="Button_Click_SaveFlashCard">Dodaj fiszke</Button>
             <Button Grid.Row="3" Grid.Column="1" Margin="10" Content="Test1"/>
         </Grid>
     </Grid>

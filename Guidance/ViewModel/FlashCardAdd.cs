@@ -14,15 +14,9 @@ namespace Guidance.ViewModel
         public string Title { get; set; }
         public List<string> Tags { get; set; }
         public string TextAnserw { get; set; }
-        public List<byte[]> PictureAnserws { get; set; }
+        public List<byte[]> FileAnserws { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-
-        public FlashCardAdd()
-        {
-            PictureAnserws = new List<byte[]>();
-        }
-
-        public void AddPicture()
+        public void AddFile()
         {
             throw new NotImplementedException();
         }
@@ -32,9 +26,6 @@ namespace Guidance.ViewModel
             throw new NotImplementedException();
         }
 
-        public void Save()
-        {
-        }
         private string ConvertTags()
         {
             string tags = "";
