@@ -1,4 +1,4 @@
-namespace Guidance.FlashCardDb
+namespace Guidance.FlashCardModel
 {
     using System;
     using System.Collections.Generic;

@@ -1,4 +1,4 @@
-namespace Guidance.FlashCardDb
+namespace Guidance.FlashCardModel
 {
     using System;
     using System.Collections.Generic;
@@ -6,15 +6,15 @@ namespace Guidance.FlashCardDb
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class FileAnserw
+    public partial class TextAnserw
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int FlashCardId { get; set; }
 
-        [Column("FileAnserw")]
+        [Column("TextAnserw")]
         [Required]
-        public byte[] File { get; set; }
+        public string Text { get; set; }
 
         public virtual FlashCard FlashCard { get; set; }
     }

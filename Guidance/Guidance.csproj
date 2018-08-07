@@ -63,11 +63,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DataAccessLayer\FlashCardDAL.cs" />
-    <Compile Include="FlashCardDb\AllAnserwsFlashCard.cs" />
-    <Compile Include="FlashCardDb\FlashCardData.cs" />
-    <Compile Include="FlashCardDb\TextAnserw.cs" />
-    <Compile Include="IView\IFlashCardPreview.cs" />
+    <Compile Include="DataAccessLayer\BaseRepository.cs" />
+    <Compile Include="DataAccessLayer\FileAnserwRepository.cs" />
+    <Compile Include="DataAccessLayer\FlashCardDataRepository.cs" />
+    <Compile Include="DataAccessLayer\FlashCardRepository.cs" />
+    <Compile Include="DataAccessLayer\IRepository.cs" />
+    <Compile Include="DataAccessLayer\AllAnserwsFlashCard.cs" />
+    <Compile Include="DataAccessLayer\TextAnserwRepository.cs" />
+    <Compile Include="FlashCardModel\FlashCardData.cs" />
+    <Compile Include="FlashCardModel\TextAnserw.cs" />
+    <Compile Include="IViewModel\IAddFlashCard.cs" />
+    <Compile Include="IViewModel\IFlashCardPreview.cs" />
+    <Compile Include="IViewModel\IFlashCardView.cs" />
+    <Compile Include="ViewModel\FlashCardAdd.cs" />
     <Compile Include="ViewModel\FlashCardPreview.cs" />
     <Compile Include="ViewModel\FlashCardReader.cs" />
     <Compile Include="ViewModel\FlashCardVM.cs" />
@@ -87,9 +95,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FlashCardDb\FileAnserw.cs" />
-    <Compile Include="FlashCardDb\FlashCard.cs" />
-    <Compile Include="FlashCardDb\FlashCardsEntities.cs" />
+    <Compile Include="FlashCardModel\FileAnserw.cs" />
+    <Compile Include="FlashCardModel\FlashCard.cs" />
+    <Compile Include="DataAccessLayer\FlashCardsEntities.cs" />
     <Compile Include="GUI\AddFlashCardWindow.xaml.cs">
       <DependentUpon>AddFlashCardWindow.xaml</DependentUpon>
     </Compile>
@@ -102,7 +110,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FlashCardDb\PictureAnserw.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -120,7 +127,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -141,5 +150,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

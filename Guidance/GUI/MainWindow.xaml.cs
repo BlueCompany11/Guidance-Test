@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using Guidance.ViewModel;
 namespace Guidance
 {
     /// <summary>
@@ -164,7 +164,7 @@ namespace Guidance
 
         private void flashCardMenuListBoxItem_Selected(object sender, RoutedEventArgs e)
         {
-            mainFrame.Content = new FlashCardEditorPage();
+            mainFrame.Content = new FlashCardEditorPage(new FlashCardReader());
         }
     }
 }

@@ -12,7 +12,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Guidance.ViewModel;
+using Guidance.IViewModel;
+using Guidance.DataAccessLayer; //del
+using Guidance.FlashCardModel;  //del
 namespace Guidance.GUI
 {
     /// <summary>
@@ -20,9 +22,16 @@ namespace Guidance.GUI
     /// </summary>
     public partial class AddFlashCardWindow : Window
     {
+        IAddFlashCard addFlashCard;
         public AddFlashCardWindow()
         {
             InitializeComponent();
+        }
+
+        public AddFlashCardWindow(IAddFlashCard addFlashCardVM):this()
+        {
+            addFlashCard = addFlashCardVM;
+            this.DataContext = addFlashCard;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -37,78 +46,37 @@ namespace Guidance.GUI
             {
                 string filename = dlg.FileName;
                 var picture = File.ReadAllBytes(filename);
+                Console.WriteLine(filename);
+                addFlashCard.PictureAnserws.Add(picture);
             }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                FlashCardVM flashCardVM = new FlashCardVM();
-                flashCardVM.Title = "Test1";
-                flashCardVM.Tags = new List<string>();
-                flashCardVM.Tags.Add("test1");
-                flashCardVM.Tags.Add("test2");
-                flashCardVM.Pictures = new List<byte[]>();
-                flashCardVM.Pictures.Add(File.ReadAllBytes(@"C:\Users\BlueCompany\Desktop\pobrane.jpg"));
-                flashCardVM.TextAnserws = new List<string>();
-                flashCardVM.TextAnserws.Add("Testowa odpowiedź");
-                flashCardVM.SaveToDB();
-                Console.WriteLine("koniec zapisywania");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message.ToString());
-            }
-            //using (var db = new FlashCardsEntities())
+            FlashCardRepository flashCardRepository = new FlashCardRepository();
+            var flashCard = new FlashCard { Title = "nowy test1", Tags = "#123" };
+            flashCardRepository.Add(flashCard);
+            //Console.WriteLine(addFlashCard.Title);
+            //foreach (var item in addFlashCard.Tags)
             //{
-            //    var flashCard = new FlashCard { Title = "SampleTitle1", Tags = "#tag1#tag2" };
-            //    db.FlashCards.Add(flashCard);
-            //    var pictureAnserw = new PictureAnserw { FlashCard = flashCard, Picture = File.ReadAllBytes(@"C:\Users\BlueCompany\Desktop\pobrane.jpg") };
-            //    db.PictureAnserws.Add(pictureAnserw);
-            //    db.SaveChanges();
-
-            //    // Display all Blogs from the database 
-            //    //var query = from b in db.FlashCards
-            //    //            orderby b.Title
-            //    //            select b;
-            //    //foreach (var item in query)
-            //    //{
-            //    //    Console.WriteLine(item.Id);
-            //    //    Console.WriteLine(item.Title);
-            //    //}
-
-            //    //Console.WriteLine("Press any key to exit...");
+            //    Console.WriteLine(item);
             //}
+            //Console.WriteLine(addFlashCard.PictureAnserws.Count.ToString());
+            //addFlashCard.Save();
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void AddNewTagToListBox(object sender, KeyEventArgs e)
         {
-            //using (var db = new FlashCardsEntities())
-            //{
-            //    var query = from b in db.PictureAnserws
-            //                select b.Picture;
-            //    byte[] imageData = query.Single();
-            //    var image = new BitmapImage();
-            //    using (var mem = new MemoryStream(imageData))
-            //    {
-            //        mem.Position = 0;
-            //        image.BeginInit();
-            //        image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
-            //        image.CacheOption = BitmapCacheOption.OnLoad;
-            //        image.UriSource = null;
-            //        image.StreamSource = mem;
-            //        image.EndInit();
-            //    }
-            //    using (var fileStream = new FileStream(@"C:\Users\BlueCompany\Desktop\pobrane1.png", FileMode.Create))
-            //    {
-            //        BitmapEncoder encoder = new PngBitmapEncoder();
-            //        encoder.Frames.Add(BitmapFrame.Create(image));
-            //        encoder.Save(fileStream);
-            //    }
-            //    image.Freeze();
-            //}
+            if(e.Key == Key.Enter)
+            {
+                tagsList.Items.Add(tagInsertTb.Text);
+                tagInsertTb.Text = "";
+            }
         }
 
+        private void DeleteTag(object sender, MouseButtonEventArgs e)
+        {
+            tagsList.Items.Remove(tagsList.SelectedItem);
+        }
     }
 }

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Guidance.IViewModel;
 
 namespace Guidance.GUI
 {
@@ -20,15 +21,22 @@ namespace Guidance.GUI
     /// </summary>
     public partial class FlashCardEditorPage : Page
     {
+        IFlashCardView flashCardView;
         public FlashCardEditorPage()
         {
             InitializeComponent();
+        }
+        public FlashCardEditorPage(IFlashCardView newFlashCardView) : base()
+        {
+            flashCardView = newFlashCardView;
+            //showFlashCardsControl.ItemsSource = flashCardView.FlashCards;
         }
 
         private void AddFlashCardButton_Click(object sender, RoutedEventArgs e)
         {
             var addFlashCardWindow = new AddFlashCardWindow();
             addFlashCardWindow.ShowDialog();
+
         }
     }
 

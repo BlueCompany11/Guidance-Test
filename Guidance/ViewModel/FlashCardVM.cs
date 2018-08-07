@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Guidance.DataAccessLayer;
-using Guidance.FlashCardDb; //to trzeba wywalic
+using Guidance.FlashCardModel;
 namespace Guidance.ViewModel
 {
     public class FlashCardVM
@@ -61,11 +61,7 @@ namespace Guidance.ViewModel
                 ConvertTags();
                 var flashCard = new FlashCard { Title = Title, Tags = tags };
                 db.FlashCards.Add(flashCard);
-                foreach (var picture in Pictures)
-                {
-                    var pictureAnserw = new PictureAnserw { FlashCard = flashCard, Picture = picture };
-                    db.PictureAnserws.Add(pictureAnserw);
-                }
+                //dodac tytul pliku 
                 //foreach (var file in Files)
                 //{
                 //    var fileAnserw = new FileAnserw { FlashCard = flashCard, File = file };

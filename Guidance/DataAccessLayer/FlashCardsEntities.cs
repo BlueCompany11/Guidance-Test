@@ -1,10 +1,10 @@
-namespace Guidance.FlashCardDb
+namespace Guidance.DataAccessLayer
 {
     using System;
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
-
+    using Guidance.FlashCardModel;
     public partial class FlashCardsEntities : DbContext
     {
         public FlashCardsEntities()
@@ -14,7 +14,6 @@ namespace Guidance.FlashCardDb
 
         public virtual DbSet<FileAnserw> FileAnserws { get; set; }
         public virtual DbSet<FlashCard> FlashCards { get; set; }
-        public virtual DbSet<PictureAnserw> PictureAnserws { get; set; }
         public virtual DbSet<TextAnserw> TextAnserws { get; set; }
         public virtual DbSet<FlashCardData> FlashCardDatas { get; set; }
         public virtual DbSet<AllAnserwsFlashCard> AllAnserwsFlashCards { get; set; }
@@ -33,10 +32,6 @@ namespace Guidance.FlashCardDb
                 .HasMany(e => e.FlashCardDatas)
                 .WithRequired(e => e.FlashCard)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<FlashCard>()
-                .HasOptional(e => e.PictureAnserw)
-                .WithRequired(e => e.FlashCard);
 
             modelBuilder.Entity<FlashCard>()
                 .HasOptional(e => e.TextAnserw)

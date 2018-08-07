@@ -1,31 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using Guidance.DataAccessLayer;
-using Guidance.FlashCardDb; //do usuniecia
+using Guidance.DataAccessLayer;
+using Guidance.IViewModel;
+
 namespace Guidance.ViewModel
 {
-    
-    public class FlashCardReader
+    public class FlashCardReader:IFlashCardView
     {
-        //FlashCardDAL flashCardDAL;
-        //public List<FlashCardPreview> FlashCards { get; private set; }
-        public ObservableCollection<FlashCardPreview> FlashCards { get; private set; }
+        public ObservableCollection<FlashCardPreview> FlashCards { get; private set; } = new ObservableCollection<FlashCardPreview>();
         public FlashCardReader()
         {
-            FlashCards = new ObservableCollection<FlashCardPreview>();
-            //flashCardDAL = new FlashCardDAL();
-            using (var db = new FlashCardsEntities())
+            //FillFlashCards();
+        }
+        private void FillFlashCards()
+        {
+            FlashCardRepository flashCardRepository = new FlashCardRepository();
+            var allFlashCards = flashCardRepository.GetAll();
+            foreach (var flashCard in allFlashCards)
             {
-                var query = from b in db.FlashCards
-                            select b;
-                foreach (var item in query)
-                {
-                    FlashCards.Add(new FlashCardPreview(item.Title, item.Tags));
-                }
+                FlashCards.Add(new FlashCardPreview(flashCard.Title, flashCard.Tags));
             }
         }
     }

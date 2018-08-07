@@ -1,4 +1,4 @@
-namespace Guidance.FlashCardDb
+namespace Guidance.DataAccessLayer
 {
     using System;
     using System.Collections.Generic;

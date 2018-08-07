@@ -1,4 +1,4 @@
-namespace Guidance.FlashCardDb
+namespace Guidance.FlashCardModel
 {
     using System;
     using System.Collections.Generic;
@@ -27,8 +27,6 @@ namespace Guidance.FlashCardDb
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FlashCardData> FlashCardDatas { get; set; }
-
-        public virtual PictureAnserw PictureAnserw { get; set; }
 
         public virtual TextAnserw TextAnserw { get; set; }
     }
