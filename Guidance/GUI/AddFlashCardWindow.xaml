@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Guidance.GUI"
         mc:Ignorable="d"
-        Title="AddFlashCardWindow" Height="450" Width="800">
+        Title="AddFlashCardWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid Margin="5">
             <Grid.ColumnDefinitions>
@@ -14,7 +14,7 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="2*"/>
                 <RowDefinition/>
                 <RowDefinition Height="0.5*"></RowDefinition>
             </Grid.RowDefinitions>
@@ -33,26 +33,61 @@
                     <ListBox Name="tagsList" ItemsSource="{Binding Path=Tags}" Grid.Row="1" MouseRightButtonDown="DeleteTag">
                     </ListBox>
                 </GroupBox>
-                <TextBox Margin="2" Name="tagInsertTb" Grid.Row="1" TextWrapping="NoWrap" AcceptsReturn="False" KeyUp="AddNewTagToListBox">
+                <TextBox Margin="3" Name="tagInsertTb" Grid.Row="1" TextWrapping="NoWrap" AcceptsReturn="False" KeyUp="AddNewTagToListBox">
                 </TextBox>
             </Grid>
             <Grid Grid.Column="1" Grid.RowSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <GroupBox  Header="Odpowiedź tekstowa">
+                <GroupBox Grid.RowSpan="2" Header="Odpowiedź tekstowa">
                     <TextBox Text="{Binding Path=TextAnserw}"></TextBox>
                 </GroupBox>
-                <Button Grid.Row="1" Margin="10,10,0,81" HorizontalAlignment="Left" VerticalAlignment="Center" Click="AddFile_Click">Dodaj plik</Button>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <GroupBox Grid.ColumnSpan="3" Header="Adnotacja do odpowiedzi tekstowej">
+                        <TextBox></TextBox>
+                    </GroupBox>
+                    <Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"> Zatwierdź odpowiedź tekstową</Button>
+                </Grid>
+                
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Click="AddFile_Click">Wybierz plik</Button>
+                    <GroupBox  Header="Adnotacja do pliku" VerticalAlignment="Center">
+                        <TextBox></TextBox>
+                    </GroupBox>
+                    <Button  Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Click="RememberFileAnserw">Zatwierdź plik</Button>
+                </Grid>
             </Grid>
             <Grid Grid.Row="2" Grid.ColumnSpan="2">
-                <ListView>
-
-                </ListView>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <DataGrid ItemsSource="{Binding Path=FileAnserws}"></DataGrid>
+                <DataGrid Grid.Column="1" ItemsSource="{Binding Path=TextAnserws}"></DataGrid>
             </Grid>
-            <Button Grid.Row="3" Margin="10" Click="Button_Click_SaveFlashCard">Dodaj fiszke</Button>
-            <Button Grid.Row="3" Grid.Column="1" Margin="10" Content="Test1"/>
+            <Button Grid.Row="3" Margin="10" Click="Button_Click_ConsolidateData">Dodaj fiszke</Button>
+            <Button Grid.Row="3" Grid.Column="1" Margin="10" Content="Test1" Click="TestData"/>
         </Grid>
     </Grid>
 </Window>

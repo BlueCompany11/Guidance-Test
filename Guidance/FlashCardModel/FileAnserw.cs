@@ -12,7 +12,7 @@ namespace Guidance.FlashCardModel
 
         [Column("FileAnserw")]
         [Required]
-        public byte[] FileAnserw1 { get; set; }
+        public byte[] File { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -20,6 +20,9 @@ namespace Guidance.FlashCardModel
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
+
+        [StringLength(100)]
+        public string Annotation { get; set; }
 
         public virtual FlashCard FlashCard { get; set; }
     }

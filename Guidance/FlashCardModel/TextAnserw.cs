@@ -17,6 +17,9 @@ namespace Guidance.FlashCardModel
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
+        [StringLength(100)]
+        public string Annotation { get; set; }
+
         public virtual FlashCard FlashCard { get; set; }
     }
 }

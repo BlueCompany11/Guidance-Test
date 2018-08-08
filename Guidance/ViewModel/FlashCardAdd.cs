@@ -11,30 +11,37 @@ namespace Guidance.ViewModel
 {
     public class FlashCardAdd : IAddFlashCard
     {
-        public string Title { get; set; }
-        public List<string> Tags { get; set; }
-        public string TextAnserw { get; set; }
-        public List<byte[]> FileAnserws { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public void AddFile()
+        public FlashCard FlashCard { get; set; } = new FlashCard();
+        public List<TextAnserw> TextAnserws { get; set; } = new List<TextAnserw>();
+        public List<FileAnserw> FileAnserws { get; set; } = new List<FileAnserw>();
+        public void AddFileAnserw(string fileName, byte[] file, string annotation = null)
         {
-            throw new NotImplementedException();
+            this.FileAnserws.Add(new FileAnserw { File = file, FileName = fileName, Annotation = annotation});
         }
 
-        public void AddTag(string input)
+        public void AddFlashCard(string title, List<string> tags)
         {
-            throw new NotImplementedException();
+            this.FlashCard = new FlashCard { Title = title, Tags = JoinStrings(tags) };
         }
 
-        private string ConvertTags()
+        public void AddTextAnserw(string text, string annotation = null)
         {
-            string tags = "";
-            for (int i = 0; i < Tags.Count; i++)
+            this.TextAnserws.Add(new TextAnserw { Text = text, Annotation = annotation });
+        }
+
+        private string JoinStrings(List<string> list, string separator = "#")
+        {
+            string joinedString = null;
+            if (list.Count != 0)
             {
-                Tags[i] += "#";
-                tags += Tags[i];
+                joinedString = "";
             }
-            return tags;
+            foreach (var item in list)
+            {
+                joinedString += "#";
+                joinedString += item;
+            }
+            return joinedString;
         }
     }
 }
