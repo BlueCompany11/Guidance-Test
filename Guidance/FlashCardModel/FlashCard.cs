@@ -13,6 +13,7 @@ namespace Guidance.FlashCardModel
         {
             FileAnserws = new HashSet<FileAnserw>();
             TextAnserws = new HashSet<TextAnserw>();
+            Tags = new HashSet<Tag>();
         }
 
         public int Id { get; set; }
@@ -21,9 +22,6 @@ namespace Guidance.FlashCardModel
         [StringLength(100)]
         public string Title { get; set; }
 
-        [Required]
-        public string Tags { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FileAnserw> FileAnserws { get; set; }
 
@@ -31,5 +29,8 @@ namespace Guidance.FlashCardModel
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TextAnserw> TextAnserws { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tag> Tags { get; set; }
     }
 }

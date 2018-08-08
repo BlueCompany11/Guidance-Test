@@ -82,6 +82,7 @@
     <Compile Include="FlashCardModel\FlashCard.cs" />
     <Compile Include="FlashCardModel\FlashCardData.cs" />
     <Compile Include="FlashCardModel\TextAnserw.cs" />
+    <Compile Include="FlashCardModel\Tag.cs" />
     <Compile Include="ViewModel\FlashCardAdd.cs" />
     <Compile Include="ViewModel\FlashCardPreview.cs" />
     <Compile Include="ViewModel\FlashCardReader.cs" />
