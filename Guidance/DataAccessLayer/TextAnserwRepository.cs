@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Guidance.FlashCardModel;
 namespace Guidance.DataAccessLayer
 {
-    public class TextAnserwRepository: BaseRepository<TextAnserw>, IRepository<TextAnserw>
+    public class TextAnserwRepository: BaseRepository<TextAnserw, FlashCardsEntities>, IRepository<TextAnserw>
     {
-        public TextAnserwRepository()
+        public TextAnserwRepository(string contextName = "FlashCardsEntities") : base(contextName)
         {
             Table = Context.TextAnserws;
         }

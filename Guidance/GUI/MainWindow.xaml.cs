@@ -14,6 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Guidance.ViewModel;
+using Guidance.DataAccessLayer; //do usuniecia
+using Guidance.FlashCardModel;
+
 namespace Guidance
 {
     /// <summary>
@@ -30,6 +33,7 @@ namespace Guidance
         {
             InitializeComponent();
 
+            //flashCardRepository.Save(flashCard);
             // Inicjowanie pustych kolumn u¿ywanych przy dokowaniu:
             column1CloneForLayer0 = new ColumnDefinition();
             column1CloneForLayer0.SharedSizeGroup = "column1";

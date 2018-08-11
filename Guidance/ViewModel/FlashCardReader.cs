@@ -21,12 +21,13 @@ namespace Guidance.ViewModel
         }
         private void FillFlashCards()
         {
-            FlashCardRepository flashCardRepository = new FlashCardRepository();
-            var allFlashCards = flashCardRepository.GetAll();
-            foreach (var flashCard in allFlashCards)
-            {
-                FlashCards.Add(new FlashCardPreview(flashCard.Title, flashCard.Tags));
-            }
+            //FlashCardRepository flashCardRepository = new FlashCardRepository();
+            //var allFlashCards = flashCardRepository.GetAll();
+            //foreach (var flashCard in allFlashCards)
+            //{
+            //    FlashCards.Add(new FlashCardPreview(flashCard.Title, flashCard.Tags));
+            //}
+            throw new NotImplementedException();
         }
     }
 }

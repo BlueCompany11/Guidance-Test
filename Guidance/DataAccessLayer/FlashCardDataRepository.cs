@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Guidance.FlashCardModel;
 namespace Guidance.DataAccessLayer
 {
-    public class FlashCardDataRepository: BaseRepository<FlashCardData>, IRepository<FlashCardData>
+    public class FlashCardDataRepository: BaseRepository<FlashCardData, FlashCardsEntities>, IRepository<FlashCardData>
     {
-        public FlashCardDataRepository()
+        public FlashCardDataRepository(string contextName = "FlashCardsEntities") : base(contextName)
         {
             Table = Context.FlashCardDatas;
         }

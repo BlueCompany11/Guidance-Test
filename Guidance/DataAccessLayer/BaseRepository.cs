@@ -8,10 +8,25 @@ using System.Threading.Tasks;
 
 namespace Guidance.DataAccessLayer
 {
-    public abstract class BaseRepository<T>: IDisposable, IRepository<T> where T:class,new()
+    public abstract class BaseRepository<T,K>: 
+        IDisposable, IRepository<T> 
+        where T: class,new() 
+        where K: DbContext, new()
     {
-        public FlashCardsEntities Context { get; } = new FlashCardsEntities();
+        public K Context { get; }
         protected DbSet<T> Table;
+
+        public BaseRepository(string contextName = null)
+        {
+            if (contextName != null)
+            {
+                Context = (K)Activator.CreateInstance(typeof(K), contextName);
+            }
+            else
+            {
+                Context = new K();
+            }
+        }
 
         internal int SaveChanges()
         {

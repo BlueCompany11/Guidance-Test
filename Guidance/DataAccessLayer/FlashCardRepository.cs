@@ -7,9 +7,9 @@ using System.Data.Entity;
 using Guidance.FlashCardModel;
 namespace Guidance.DataAccessLayer
 {
-    public class FlashCardRepository: BaseRepository<FlashCard> , IRepository<FlashCard>
+    public class FlashCardRepository: BaseRepository<FlashCard, FlashCardsEntities> , IRepository<FlashCard>
     {
-        public FlashCardRepository()
+        public FlashCardRepository(string contextName = "FlashCardsEntities"):base(contextName)
         {
             Table = Context.FlashCards;
         }

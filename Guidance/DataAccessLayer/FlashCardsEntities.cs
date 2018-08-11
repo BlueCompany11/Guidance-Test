@@ -9,7 +9,11 @@ namespace Guidance.DataAccessLayer
     public partial class FlashCardsEntities : DbContext
     {
         public FlashCardsEntities()
-            : base("name=FlashCardsEntities1")
+            : base("name=FlashCardsEntities")
+        {
+        }
+
+        public FlashCardsEntities(string name):base(name)
         {
         }
 

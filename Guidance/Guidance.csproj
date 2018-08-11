@@ -74,6 +74,7 @@
     <Compile Include="DataAccessLayer\FlashCardRepository.cs" />
     <Compile Include="DataAccessLayer\IRepository.cs" />
     <Compile Include="DataAccessLayer\AllAnserwsFlashCard.cs" />
+    <Compile Include="DataAccessLayer\TagRepository.cs" />
     <Compile Include="DataAccessLayer\TextAnserwRepository.cs" />
     <Compile Include="IViewModel\IAddFlashCard.cs" />
     <Compile Include="IViewModel\IFlashCardPreview.cs" />

@@ -14,6 +14,9 @@ namespace Guidance.ViewModel
         public FlashCard FlashCard { get; set; } = new FlashCard();
         public List<TextAnserw> TextAnserws { get; set; } = new List<TextAnserw>();
         public List<FileAnserw> FileAnserws { get; set; } = new List<FileAnserw>();
+        public string Title { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public List<string> Tags { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public void AddFileAnserw(string fileName, byte[] file, string annotation = null)
         {
             this.FileAnserws.Add(new FileAnserw { File = file, FileName = fileName, Annotation = annotation});
@@ -21,7 +24,8 @@ namespace Guidance.ViewModel
 
         public void AddFlashCard(string title, List<string> tags)
         {
-            this.FlashCard = new FlashCard { Title = title, Tags = JoinStrings(tags) };
+            //this.FlashCard = new FlashCard { Title = title, Tags = JoinStrings(tags) };
+            throw new NotImplementedException();
         }
 
         public void AddTextAnserw(string text, string annotation = null)

@@ -42,9 +42,7 @@ namespace Guidance.GUI
 
         private void test1(object sender, RoutedEventArgs e)
         {
-            FlashCardRepository flashCardRepository = new FlashCardRepository();
-            var flashCard = new FlashCard { Title = "nowy test1", Tags = "#123" };
-            flashCardRepository.Add(flashCard);
+
         }
     }
 
