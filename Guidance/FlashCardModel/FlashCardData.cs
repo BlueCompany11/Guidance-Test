@@ -10,7 +10,6 @@ namespace Guidance.FlashCardModel
     public partial class FlashCardData
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int FlashCardId { get; set; }
 
         public bool? LastResult { get; set; }

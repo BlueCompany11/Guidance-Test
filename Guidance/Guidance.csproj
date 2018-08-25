@@ -76,6 +76,8 @@
     <Compile Include="DataAccessLayer\AllAnserwsFlashCard.cs" />
     <Compile Include="DataAccessLayer\TagRepository.cs" />
     <Compile Include="DataAccessLayer\TextAnserwRepository.cs" />
+    <Compile Include="FlashCardModel\FlashCardDataPartial.cs" />
+    <Compile Include="FlashCardModel\FlashCardMemorizer.cs" />
     <Compile Include="IViewModel\IAddFlashCard.cs" />
     <Compile Include="IViewModel\IFlashCardPreview.cs" />
     <Compile Include="IViewModel\IFlashCardView.cs" />
@@ -133,6 +135,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

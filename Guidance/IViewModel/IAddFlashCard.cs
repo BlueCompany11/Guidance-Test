@@ -10,16 +10,16 @@ namespace Guidance.IViewModel
 {
     public interface IAddFlashCard
     {
-        FlashCard FlashCard { get; set; }
-        List<TextAnserw> TextAnserws { get; set; }
-        List<FileAnserw> FileAnserws { get; set; }
-        void AddFileAnserw(string fileName, byte[] file, string annotation = null);
-        void AddFlashCard(string title, List<string> tags);
-        void AddTextAnserw(string text, string annotation = null);
         string Title { get; set; }
         List<string> Tags { get; set; }
-        
-
-
+        string CurrentTag { get; set; }
+        string CurrentTextAnserw { get; set; }
+        string TextAnserwAnnotation { get; set; }
+        void AddTextAnserw();
+        string FileAnnotation { get; set; }
+        void AddFile();
+        void AddSetOfFiles();
+        FlashCard Save();
+        void AddTag();
     }
 }

@@ -10,6 +10,6 @@ namespace Guidance.IViewModel
 {
     public interface IFlashCardView
     {
-        ObservableCollection<FlashCardPreview> FlashCards { get;}
+        List<FlashCardPreview> FlashCards { get;}
     }
 }

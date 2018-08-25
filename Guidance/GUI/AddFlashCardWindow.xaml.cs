@@ -33,18 +33,7 @@ namespace Guidance.GUI
         }
         private void AddFile_Click(object sender, RoutedEventArgs e)
         {
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            //dlg.DefaultExt = ".png";
-            //dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
-
-            bool? result = dlg.ShowDialog();
-            
-            if (result == true)
-            {
-                string filename = dlg.FileName;
-                var file = File.ReadAllBytes(filename);
-                addFlashCard.AddFileAnserw(filename, file, null);
-            }
+           
         }
 
         private void Button_Click_ConsolidateData(object sender, RoutedEventArgs e)
@@ -68,10 +57,6 @@ namespace Guidance.GUI
 
         private void TestData(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine(addFlashCard.FlashCard.Title);
-            Console.WriteLine(addFlashCard.FlashCard.Tags);
-            Console.WriteLine(addFlashCard.FileAnserws.Count);
-            Console.WriteLine(addFlashCard.TextAnserws.Count);
         }
 
         private void RememberFileAnserw(object sender, RoutedEventArgs e)

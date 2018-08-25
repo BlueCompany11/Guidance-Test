@@ -55,8 +55,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="UnitTestDataBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTestFlashCardMemorizer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

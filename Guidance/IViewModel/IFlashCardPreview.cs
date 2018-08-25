@@ -8,8 +8,9 @@ namespace Guidance.IViewModel
 {
     public interface IFlashCardPreview
     {
-        string Title { get; }
-
-        string Tag { get; }
+        string Title { get; set; }
+        DateTime CreationDate { get; set; }
+        List<string> Tags { get; set; }
+        DateTime LastOccurance { get; set; }
     }
 }

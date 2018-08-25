@@ -9,14 +9,13 @@ namespace Guidance.ViewModel
 {
     public class FlashCardPreview:IFlashCardPreview
     {
-        public string Title { get; private set; }
+        public string Title { get; set; }
 
-        public string Tag { get; private set; }
-        public FlashCardPreview(string title, string tag)
-        {
-            Title = title;
-            Tag = tag;
-        }
+        public DateTime CreationDate { get; set; }
+
+        public List<string> Tags { get; set; }
+
+        public DateTime LastOccurance { get; set; }
 
     }
 }

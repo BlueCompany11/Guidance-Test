@@ -44,6 +44,11 @@ namespace Guidance.GUI
         {
 
         }
+
+        private void DeleteFlashCardButton_Click(object sender, RoutedEventArgs e)
+        {
+            var flashCard = (FlashCard)
+        }
     }
 
 }

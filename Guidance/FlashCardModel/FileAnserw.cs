@@ -18,7 +18,7 @@ namespace Guidance.FlashCardModel
         [StringLength(50)]
         public string FileName { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [StringLength(100)]
