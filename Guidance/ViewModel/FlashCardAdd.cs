@@ -13,12 +13,28 @@ namespace Guidance.ViewModel
 {
     public class FlashCardAdd : IAddFlashCard
     {
-        public string Title { get; set; }
-        public List<string> Tags { get; set; }
+        public FlashCardAdd()
+        {
+            this.flashCard = new FlashCard();
+        }
+        public FlashCardAdd(FlashCard flashCard):this()
+        {
+            this.flashCard = flashCard;
+        }
+        FlashCard flashCard;
+        public string Title { get => flashCard.Title; set { flashCard.Title = value; Console.WriteLine("tytul"); } }
+        public ObservableCollection<string> Tags
+        {
+            get => new ObservableCollection<string>(flashCard.Tags.Select(x => x.Tag1).ToList());
+            set
+            {
+                flashCard.Tags = value.Select(tag => new Tag() { Tag1 = tag }).ToList();
+                Console.WriteLine("asd");
+            }
+        }
         public string CurrentTextAnserw { get; set; }
         public string TextAnserwAnnotation { get; set; }
         public string FileAnnotation { get; set; }
-        public string CurrentTag { get; set; }
 
         private List<FileAnserw> fileAnserws = new List<FileAnserw>();
         private List<TextAnserw> textAnserws = new List<TextAnserw>();
@@ -27,11 +43,6 @@ namespace Guidance.ViewModel
         public void AddTextAnserw(string textAnserw, string textAnserwAnnotation)
         {
             textAnserws.Add(new TextAnserw { Text = textAnserw, Annotation = textAnserwAnnotation });
-        }
-        public void AddTag()
-        {
-            Tags.Add(CurrentTag);
-            tags.Add(new Tag { Tag1 = CurrentTag });
         }
 
         public FlashCard Save()
@@ -73,27 +84,19 @@ namespace Guidance.ViewModel
 
         public void SaveFlashCard()
         {
-            //var flashCard1 = new FlashCard
+            Console.WriteLine(flashCard);
+            //using (FlashCardRepository flashCardRepository = new FlashCardRepository())
             //{
-            //    Title = Title,
-            //    FileAnserws = fileAnserws,
-            //    TextAnserws = textAnserws,
-            //    Tags = tags,
-            //    FlashCardData = new FlashCardData()
-            //};
-            //Console.WriteLine(flashCard1);
-            using (FlashCardRepository flashCardRepository = new FlashCardRepository())
-            {
-                var flashCard = new FlashCard
-                {
-                    Title = Title,
-                    FileAnserws = fileAnserws,
-                    TextAnserws = textAnserws,
-                    Tags = tags,
-                    FlashCardData = new FlashCardData()
-                };
-                flashCardRepository.Add(flashCard);
-            }
+            //    var flashCard = new FlashCard
+            //    {
+            //        Title = Title,
+            //        FileAnserws = fileAnserws,
+            //        TextAnserws = textAnserws,
+            //        Tags = tags,
+            //        FlashCardData = new FlashCardData()
+            //    };
+            //    flashCardRepository.Add(flashCard);
+            //}
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -60,8 +61,11 @@ namespace Guidance.GUI
         {
             if(e.Key == Key.Enter)
             {
-                tagsList.Items.Add(tagInsertTb.Text);
+                var tempList = tagsList.ItemsSource.Cast<string>().ToList();
+                tempList.Add(tagInsertTb.Text);
+                tagsList.ItemsSource = new ObservableCollection<string>(tempList);
                 tagInsertTb.Text = "";
+                //tagsList.DataContext = addFlashCard.Tags;
             }
         }
 

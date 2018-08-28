@@ -11,11 +11,9 @@ namespace Guidance.IViewModel
     public interface IAddFlashCard
     {
         string Title { get; set; }
-        List<string> Tags { get; set; }
-        string CurrentTag { get; set; }
+        ObservableCollection<string> Tags { get; set; }
         void AddTextAnserw(string textAnserw, string annotation);
         void AddFile(string path);
-        void AddTag();
         void AttachAnnotationToFile(string annotation);// dodanie annotation do pliku
         void SaveFlashCard();
     }

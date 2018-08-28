@@ -50,6 +50,13 @@ namespace Guidance.GUI
         {
             //var flashCard = 
         }
+
+        private void EditFlashCardButton_Click(object sender, RoutedEventArgs e)
+        {
+            var addFlashCardWindow = new AddFlashCardWindow(new FlashCardAdd());
+            addFlashCardWindow.ShowDialog();
+        }
+        
     }
 
 }
