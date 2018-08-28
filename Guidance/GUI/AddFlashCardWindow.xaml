@@ -44,7 +44,7 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <GroupBox Grid.RowSpan="2" Header="Odpowiedź tekstowa">
-                    <TextBox Text="{Binding Path=TextAnserw}"></TextBox>
+                    <TextBox Name="textAnserwTb"></TextBox>
                 </GroupBox>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
@@ -57,9 +57,9 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <GroupBox Grid.ColumnSpan="3" Header="Adnotacja do odpowiedzi tekstowej">
-                        <TextBox></TextBox>
+                        <TextBox Name="textAnserwAnnotationTb"></TextBox>
                     </GroupBox>
-                    <Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"> Dodaj odpowiedź tekstową</Button>
+                    <Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Click="AddTextAnserw_Click"> Dodaj odpowiedź tekstową</Button>
                 </Grid>
                 
                 <Grid Grid.Row="3">
@@ -73,7 +73,7 @@
                     </Grid.RowDefinitions>
                     <Button Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Click="AddFile_Click">Dodaj plik</Button>
                     <GroupBox  Header="Adnotacja do pliku" VerticalAlignment="Center">
-                        <TextBox></TextBox>
+                        <TextBox Name="fileAnnotationTb"></TextBox>
                     </GroupBox>
                     <Button  Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Click="RememberFileAnserw">Zapisz pliki</Button>
                 </Grid>
@@ -86,7 +86,7 @@
                 <DataGrid ItemsSource="{Binding Path=FileAnserws}"></DataGrid>
                 <DataGrid Grid.Column="1" ItemsSource="{Binding Path=TextAnserws}"></DataGrid>
             </Grid>
-            <Button Grid.Row="3" Margin="10" Click="Button_Click_ConsolidateData">Dodaj fiszke</Button>
+            <Button Grid.Row="3" Margin="10" Click="Button_Click_SaveFlashCard">Dodaj fiszke</Button>
             <Button Grid.Row="3" Grid.Column="1" Margin="10" Content="Test1" Click="TestData"/>
         </Grid>
     </Grid>

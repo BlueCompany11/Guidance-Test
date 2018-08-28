@@ -33,12 +33,27 @@ namespace Guidance.GUI
         }
         private void AddFile_Click(object sender, RoutedEventArgs e)
         {
-           
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            bool? result = dlg.ShowDialog();
+            if (result == true)
+            {
+                addFlashCard.AddFile(dlg.FileName);
+            }
+        }
+        private void RememberFileAnserw(object sender, RoutedEventArgs e)
+        {
+            addFlashCard.AttachAnnotationToFile(fileAnnotationTb.Text);   // dodanie annotation do pliku
+            //addFlashCard.AddFile(); // zapis pliku i annotation w FlashCardzie
         }
 
-        private void Button_Click_ConsolidateData(object sender, RoutedEventArgs e)
+        private void AddTextAnserw_Click(object sender, RoutedEventArgs e)
+        {
+            addFlashCard.AddTextAnserw(textAnserwTb.Text, textAnserwAnnotationTb.Text);   //pobranie annotation TextAnserw i TextAnerw z 2 tb i zapis do struktury FlashCard
+        }
+        private void Button_Click_SaveFlashCard(object sender, RoutedEventArgs e)
         {
             //zapisac textanserw i caly flashcard
+            addFlashCard.SaveFlashCard();
         }
 
         private void AddNewTagToListBox(object sender, KeyEventArgs e)
@@ -59,9 +74,6 @@ namespace Guidance.GUI
         {
         }
 
-        private void RememberFileAnserw(object sender, RoutedEventArgs e)
-        {
 
-        }
     }
 }

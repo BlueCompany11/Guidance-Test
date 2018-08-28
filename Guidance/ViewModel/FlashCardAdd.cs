@@ -21,33 +21,12 @@ namespace Guidance.ViewModel
         public string CurrentTag { get; set; }
 
         private List<FileAnserw> fileAnserws = new List<FileAnserw>();
-        private List<FileAnserw> currentFileAnserws = new List<FileAnserw>();
         private List<TextAnserw> textAnserws = new List<TextAnserw>();
         private List<Tag> tags = new List<Tag>();
-
-        public void AddFile()
+        //DODAC FUNCKJE DODAJACE TAGI I FILEANSERW NIE DODAOWALO
+        public void AddTextAnserw(string textAnserw, string textAnserwAnnotation)
         {
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            bool? result = dlg.ShowDialog();
-            if (result == true)
-            {
-                string filePath = dlg.FileName;
-                var file = File.ReadAllBytes(filePath);
-                var fileName = Path.GetFileName(filePath);
-                currentFileAnserws.Add(new FileAnserw { File = file, FileName = fileName });
-            }
-        }
-
-        public void AddSetOfFiles()
-        {
-            fileAnserws.AddRange(currentFileAnserws);
-            fileAnserws.ForEach(fileAnserw => fileAnserw.Annotation = FileAnnotation);
-            currentFileAnserws.Clear();
-        }
-
-        public void AddTextAnserw()
-        {
-            textAnserws.Add(new TextAnserw { Text = CurrentTextAnserw, Annotation = TextAnserwAnnotation });
+            textAnserws.Add(new TextAnserw { Text = textAnserw, Annotation = textAnserwAnnotation });
         }
         public void AddTag()
         {
@@ -68,6 +47,52 @@ namespace Guidance.ViewModel
                     FlashCardData = new FlashCardData()
                 };
                 return flashCard;
+            }
+        }
+
+        public void AttachAnnotationToFile(string annotation)
+        {
+            try
+            {
+                var currentFileAnserw = fileAnserws.Last();
+                currentFileAnserw.Annotation = annotation;
+            }
+            catch (Exception) { };  //if empty do nothing
+        }
+
+        public void AddFile(string filePath)
+        {
+            var file = File.ReadAllBytes(filePath);
+            var fileName = Path.GetFileName(filePath);
+            if(fileAnserws.Any(n=>n.FileName == fileName))
+            {
+                return; // do nothing cuz this file is already there
+            }
+            fileAnserws.Add(new FileAnserw { File = file, FileName = fileName });
+        }
+
+        public void SaveFlashCard()
+        {
+            //var flashCard1 = new FlashCard
+            //{
+            //    Title = Title,
+            //    FileAnserws = fileAnserws,
+            //    TextAnserws = textAnserws,
+            //    Tags = tags,
+            //    FlashCardData = new FlashCardData()
+            //};
+            //Console.WriteLine(flashCard1);
+            using (FlashCardRepository flashCardRepository = new FlashCardRepository())
+            {
+                var flashCard = new FlashCard
+                {
+                    Title = Title,
+                    FileAnserws = fileAnserws,
+                    TextAnserws = textAnserws,
+                    Tags = tags,
+                    FlashCardData = new FlashCardData()
+                };
+                flashCardRepository.Add(flashCard);
             }
         }
     }

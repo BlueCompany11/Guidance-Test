@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Guidance.DataAccessLayer; //do usuniecia
 using Guidance.FlashCardModel;  //do usuniecia
 using Guidance.IViewModel;
+using Guidance.ViewModel;
 
 namespace Guidance.GUI
 {
@@ -36,7 +37,7 @@ namespace Guidance.GUI
 
         private void AddFlashCardButton_Click(object sender, RoutedEventArgs e)
         {
-            var addFlashCardWindow = new AddFlashCardWindow();
+            var addFlashCardWindow = new AddFlashCardWindow(new FlashCardAdd());
             addFlashCardWindow.ShowDialog();
         }
 
@@ -47,7 +48,7 @@ namespace Guidance.GUI
 
         private void DeleteFlashCardButton_Click(object sender, RoutedEventArgs e)
         {
-            var flashCard = (FlashCard)
+            //var flashCard = 
         }
     }
 

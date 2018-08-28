@@ -78,6 +78,7 @@
     <Compile Include="DataAccessLayer\TextAnserwRepository.cs" />
     <Compile Include="FlashCardModel\FlashCardDataPartial.cs" />
     <Compile Include="FlashCardModel\FlashCardMemorizer.cs" />
+    <Compile Include="FlashCardModel\FlashCardPartial.cs" />
     <Compile Include="IViewModel\IAddFlashCard.cs" />
     <Compile Include="IViewModel\IFlashCardPreview.cs" />
     <Compile Include="IViewModel\IFlashCardView.cs" />
