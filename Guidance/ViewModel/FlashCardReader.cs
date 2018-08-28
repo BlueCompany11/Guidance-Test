@@ -16,7 +16,7 @@ namespace Guidance.ViewModel
         public List<FlashCardPreview> FlashCards { get; private set; } = new List<FlashCardPreview>();
         public FlashCardReader()
         {
-            FillFlashCards();
+            //FillFlashCards();
             //Console.WriteLine(FlashCards[0].Tags[0].OfType<Tag>().ToList()[0].Tag1);
         }
         private void FillFlashCards()

@@ -62,10 +62,13 @@ namespace Guidance.GUI
             if(e.Key == Key.Enter)
             {
                 var tempList = tagsList.ItemsSource.Cast<string>().ToList();
+                Console.WriteLine(tempList.Count);
                 tempList.Add(tagInsertTb.Text);
+                // show on gui new element
                 tagsList.ItemsSource = new ObservableCollection<string>(tempList);
                 tagInsertTb.Text = "";
-                //tagsList.DataContext = addFlashCard.Tags;
+                // bind again
+                addFlashCard.Tags = new ObservableCollection<string>(tempList);
             }
         }
 
