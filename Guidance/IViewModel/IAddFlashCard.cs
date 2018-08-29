@@ -15,6 +15,7 @@ namespace Guidance.IViewModel
         void AddTextAnserw(string textAnserw, string annotation);
         void AddFile(string path);
         void AttachAnnotationToFile(string annotation);// dodanie annotation do pliku
-        void SaveFlashCard();
+        void Save();
+        void PrintFlashCard();
     }
 }

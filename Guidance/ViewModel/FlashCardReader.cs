@@ -16,7 +16,7 @@ namespace Guidance.ViewModel
         public List<FlashCardPreview> FlashCards { get; private set; } = new List<FlashCardPreview>();
         public FlashCardReader()
         {
-            //FillFlashCards();
+            FillFlashCards();
             //Console.WriteLine(FlashCards[0].Tags[0].OfType<Tag>().ToList()[0].Tag1);
         }
         private void FillFlashCards()
@@ -47,6 +47,25 @@ namespace Guidance.ViewModel
                 }
             }
             FlashCards = flashCardPreview;
+        }
+
+        public FlashCard FindFlashCard(string flashCardTitle)
+        {
+            using (FlashCardRepository flashCardRepository = new FlashCardRepository())
+            {
+                flashCardRepository.Context.FlashCards.Add(new FlashCard());
+                var flashCardsFromDb = flashCardRepository.GetAll();
+                return flashCardsFromDb.Find(n => n.Title == flashCardTitle);
+            }
+        }
+
+        public void DeleteFlashCard(FlashCard flashCard)
+        {
+            using (FlashCardRepository flashCardRepository = new FlashCardRepository())
+            {
+                var allFlashCards = flashCardRepository.GetAll();
+                flashCardRepository.Delete(flashCard);
+            }
         }
     }
 }

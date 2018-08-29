@@ -54,7 +54,8 @@ namespace Guidance.GUI
         private void Button_Click_SaveFlashCard(object sender, RoutedEventArgs e)
         {
             //zapisac textanserw i caly flashcard
-            addFlashCard.SaveFlashCard();
+            addFlashCard.Save();
+            this.Close();
         }
 
         private void AddNewTagToListBox(object sender, KeyEventArgs e)
@@ -62,11 +63,10 @@ namespace Guidance.GUI
             if(e.Key == Key.Enter)
             {
                 var tempList = tagsList.ItemsSource.Cast<string>().ToList();
-                Console.WriteLine(tempList.Count);
                 tempList.Add(tagInsertTb.Text);
+                tagInsertTb.Text = "";
                 // show on gui new element
                 tagsList.ItemsSource = new ObservableCollection<string>(tempList);
-                tagInsertTb.Text = "";
                 // bind again
                 addFlashCard.Tags = new ObservableCollection<string>(tempList);
             }
@@ -79,6 +79,7 @@ namespace Guidance.GUI
 
         private void TestData(object sender, RoutedEventArgs e)
         {
+            addFlashCard.PrintFlashCard();
         }
 
 

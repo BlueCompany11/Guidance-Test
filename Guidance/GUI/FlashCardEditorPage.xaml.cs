@@ -32,7 +32,7 @@ namespace Guidance.GUI
         public FlashCardEditorPage(IFlashCardView newFlashCardView) : this()
         {
             flashCardView = newFlashCardView;
-            showFlashCardsControl.ItemsSource = flashCardView.FlashCards;
+            showFlashCardsDataGrid.ItemsSource = flashCardView.FlashCards;
         }
 
         private void AddFlashCardButton_Click(object sender, RoutedEventArgs e)
@@ -48,12 +48,22 @@ namespace Guidance.GUI
 
         private void DeleteFlashCardButton_Click(object sender, RoutedEventArgs e)
         {
-            //var flashCard = 
+            if (showFlashCardsDataGrid.SelectedItem == null)
+            {
+                return;
+            }
+            FlashCardPreview flashCardPreview = (FlashCardPreview)showFlashCardsDataGrid.SelectedItem;
+            flashCardView.DeleteFlashCard(flashCardView.FindFlashCard(flashCardPreview.Title));
         }
 
         private void EditFlashCardButton_Click(object sender, RoutedEventArgs e)
         {
-            var addFlashCardWindow = new AddFlashCardWindow(new FlashCardAdd());
+            if (showFlashCardsDataGrid.SelectedItem == null)
+            {
+                return;
+            }
+            FlashCardPreview flashCardPreview = (FlashCardPreview)showFlashCardsDataGrid.SelectedItem;
+            var addFlashCardWindow = new AddFlashCardWindow(new FlashCardAdd(flashCardView.FindFlashCard(flashCardPreview.Title)));
             addFlashCardWindow.ShowDialog();
         }
         

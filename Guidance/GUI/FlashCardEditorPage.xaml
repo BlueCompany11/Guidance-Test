@@ -18,18 +18,12 @@
                 <RowDefinition Height="10*"/>
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <DataGrid Name="showFlashCardsControl" >
-                <DataGrid.RowDetailsTemplate>
-                    <DataTemplate>
-                        <DataGrid ItemsSource="{Binding Tags}">
-                            <DataGrid.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Tag1}"/>
-                                </DataTemplate>
-                            </DataGrid.ItemTemplate>
-                        </DataGrid>
-                    </DataTemplate>
-                </DataGrid.RowDetailsTemplate>
+            <DataGrid Name="showFlashCardsDataGrid" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Tytuł" Binding="{Binding Title}" />
+                    <DataGridTextColumn Header="Data utworzenia" Binding="{Binding CreationDate}" />
+                    <DataGridTextColumn Header="Data ostatniego przywołania" Binding="{Binding LastOccurance}" />
+                </DataGrid.Columns>
             </DataGrid>
             <Grid Grid.Column="0" Grid.Row="1">
                 <Grid.ColumnDefinitions>

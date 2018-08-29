@@ -40,8 +40,8 @@
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <GroupBox Grid.RowSpan="2" Header="Odpowiedź tekstowa">
                     <TextBox Name="textAnserwTb"></TextBox>
