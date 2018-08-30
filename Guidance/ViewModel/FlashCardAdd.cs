@@ -17,7 +17,6 @@ namespace Guidance.ViewModel
         public FlashCardAdd()
         {
             this.flashCard = new FlashCard();
-            FilesNames = new ObservableCollection<string>();
         }
         public FlashCardAdd(FlashCard flashCard):this()
         {
@@ -52,14 +51,15 @@ namespace Guidance.ViewModel
         public ObservableCollection<string> FilesNames
         {
             get => new ObservableCollection<string>(flashCard.FileAnserws.Select(x => x.FileName).ToList());
-            set
-            {
+            //set
+            //{
                 //otrzymuje liste nazw plikow - patrze ktorego nie ma i kasuje z flashCard
                 //znajduje brakujace elementy
-                var fileNamesToDelete = flashCard.FileAnserws.Select(x => x.FileName).Except(value).ToList();
+                //var fileNamesToDelete = flashCard.FileAnserws.Select(x => x.FileName).Except(value).ToList();
                 //usuwam je z listy flash card i zatwierdzam nowa liste
-                flashCard.FileAnserws = flashCard.FileAnserws.Where(x => !fileNamesToDelete.Any(s => s.Contains(x.FileName))).ToList();
-            }
+                //flashCard.FileAnserws = flashCard.FileAnserws.Where(x => !fileNamesToDelete.Any(s => s.Contains(x.FileName))).ToList();
+
+            //}
         }
         //public ObservableCollection<string> TextAnserws { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public ObservableCollection<string> TextAnserws { get; set; }
@@ -102,6 +102,12 @@ namespace Guidance.ViewModel
         public void PrintFlashCard()
         {
             Console.WriteLine(flashCard);
+        }
+
+        public void DeleteFile(string fileName)
+        {
+            flashCard.FileAnserws = flashCard.FileAnserws.Where(x => x.FileName != fileName).ToList();
+            OnPropertyChanged("FilesNames");
         }
     }
 }

@@ -84,7 +84,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid>
-                    <ListBox Name="fileAnserwsList" ItemsSource="{Binding Path=FilesNames}"></ListBox>
+                    <ListBox Name="fileAnserwsList" ItemsSource="{Binding Path=FilesNames}" MouseDoubleClick="fileAnserwsList_MouseDoubleClick"></ListBox>
                 </Grid>
                 <Grid Grid.Column="1">
                     <ListBox Name="textAnserwsList" ItemsSource="{Binding Path=TextAnserws}"></ListBox>

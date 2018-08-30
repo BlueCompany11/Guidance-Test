@@ -87,7 +87,18 @@ namespace Guidance.GUI
         {
             addFlashCard.PrintFlashCard();
         }
-
-
+        /// <summary>
+        /// Delete selected file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void fileAnserwsList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (fileAnserwsList.SelectedItem == null)
+            {
+                return;
+            }
+            addFlashCard.DeleteFile(fileAnserwsList.SelectedItem.ToString());
+        }
     }
 }
