@@ -8,21 +8,38 @@ using Guidance.DataAccessLayer;
 using Guidance.IViewModel;
 using Guidance.FlashCardModel;
 using System.IO;
+using System.ComponentModel;
 
 namespace Guidance.ViewModel
 {
-    public class FlashCardAdd : IAddFlashCard
+    public class FlashCardAdd : IAddFlashCard, INotifyPropertyChanged
     {
         public FlashCardAdd()
         {
             this.flashCard = new FlashCard();
+            FilesNames = new ObservableCollection<string>();
         }
         public FlashCardAdd(FlashCard flashCard):this()
         {
             this.flashCard = flashCard;
         }
         FlashCard flashCard;
-        public string Title { get => flashCard.Title; set => flashCard.Title = value; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        public string Title
+        {
+            get => flashCard.Title;
+            set
+            {
+                flashCard.Title = value;
+                OnPropertyChanged("Title");
+            }
+        }
         public ObservableCollection<string> Tags
         {
             get => new ObservableCollection<string>(flashCard.Tags.Select(x => x.Tag1).ToList());
@@ -31,7 +48,21 @@ namespace Guidance.ViewModel
                 flashCard.Tags = value.Select(tag => new Tag() { Tag1 = tag }).ToList();
             }
         }
-        
+
+        public ObservableCollection<string> FilesNames
+        {
+            get => new ObservableCollection<string>(flashCard.FileAnserws.Select(x => x.FileName).ToList());
+            set
+            {
+                //otrzymuje liste nazw plikow - patrze ktorego nie ma i kasuje z flashCard
+                //znajduje brakujace elementy
+                var fileNamesToDelete = flashCard.FileAnserws.Select(x => x.FileName).Except(value).ToList();
+                //usuwam je z listy flash card i zatwierdzam nowa liste
+                flashCard.FileAnserws = flashCard.FileAnserws.Where(x => !fileNamesToDelete.Any(s => s.Contains(x.FileName))).ToList();
+            }
+        }
+        //public ObservableCollection<string> TextAnserws { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ObservableCollection<string> TextAnserws { get; set; }
         public void AddTextAnserw(string textAnserw, string textAnserwAnnotation)
         {
             flashCard.TextAnserws.Add(new TextAnserw { Text = textAnserw, Annotation = textAnserwAnnotation });
@@ -43,6 +74,8 @@ namespace Guidance.ViewModel
             {
                 var currentFileAnserw = flashCard.FileAnserws.Last();
                 currentFileAnserw.Annotation = annotation;
+                //nowe file zostlao zatwierdzone
+                OnPropertyChanged("FilesNames");
             }
             catch (Exception) { };  //if empty do nothing
         }

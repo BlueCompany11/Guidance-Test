@@ -83,6 +83,12 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
+                <Grid>
+                    <ListBox Name="fileAnserwsList" ItemsSource="{Binding Path=FilesNames}"></ListBox>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <ListBox Name="textAnserwsList" ItemsSource="{Binding Path=TextAnserws}"></ListBox>
+                </Grid>
             </Grid>
             <Button Grid.Row="3" Margin="10" Click="Button_Click_SaveFlashCard">Dodaj fiszke</Button>
             <Button Grid.Row="3" Grid.Column="1" Margin="10" Content="Test1" Click="TestData"/>

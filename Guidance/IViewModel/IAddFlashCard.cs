@@ -17,5 +17,7 @@ namespace Guidance.IViewModel
         void AttachAnnotationToFile(string annotation);// dodanie annotation do pliku
         void Save();
         void PrintFlashCard();
+        ObservableCollection<string> FilesNames { get; set; }
+        ObservableCollection<string> TextAnserws { get; set; }
     }
 }

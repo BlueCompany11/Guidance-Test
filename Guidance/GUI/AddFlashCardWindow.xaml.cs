@@ -44,6 +44,12 @@ namespace Guidance.GUI
         private void RememberFileAnserw(object sender, RoutedEventArgs e)
         {
             addFlashCard.AttachAnnotationToFile(fileAnnotationTb.Text);   // dodanie annotation do pliku
+            //aktualizacja listboxa
+            //var tempList = fileAnserwsList.ItemsSource.Cast<string>().ToList();
+            // show on gui new element
+            //fileAnserwsList.ItemsSource = new ObservableCollection<string>(tempList);
+            // bind again
+            //addFlashCard.FilesNames = new ObservableCollection<string>(tempList);
             //addFlashCard.AddFile(); // zapis pliku i annotation w FlashCardzie
         }
 
