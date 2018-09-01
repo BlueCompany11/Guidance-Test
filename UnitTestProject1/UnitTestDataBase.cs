@@ -20,22 +20,22 @@ namespace UnitTestFlashCards
         Tag tag2 = new Tag { Tag1 = "TestTag2" };
         FlashCardData flashCardData = new FlashCardData { CreationDate = DateTime.Today };
         string flashCardTitle = "Test1";
-        [TestInitialize]
-        public void TestInit()
-        {
-            using (FlashCardRepository flashCardRepository = new FlashCardRepository(serverName))
-            {
-                var flashCard = new FlashCard
-                {
-                    Title = flashCardTitle,
-                    FileAnserws = new List<FileAnserw> { fileAnserw1, fileAnserw2 },
-                    TextAnserws = new List<TextAnserw> { textAnserw1, textAnserw2 },
-                    Tags = new List<Tag> { tag1, tag2 },
-                    FlashCardData = flashCardData
-                };
-                flashCardRepository.Add(flashCard);
-            }
-        }
+        //[TestInitialize]
+        //public void TestInit()
+        //{
+        //    using (FlashCardRepository flashCardRepository = new FlashCardRepository(serverName))
+        //    {
+        //        var flashCard = new FlashCard
+        //        {
+        //            Title = flashCardTitle,
+        //            FileAnserws = new List<FileAnserw> { fileAnserw1, fileAnserw2 },
+        //            TextAnserws = new List<TextAnserw> { textAnserw1, textAnserw2 },
+        //            Tags = new List<Tag> { tag1, tag2 },
+        //            FlashCardData = flashCardData
+        //        };
+        //        flashCardRepository.Add(flashCard);
+        //    }
+        //}
 
         //private void ClearRepo<T>(T repo) where T: IRepository, new()
         //{
@@ -61,45 +61,103 @@ namespace UnitTestFlashCards
         //    }
         //}
 
-        [TestCleanup]
-        public void TestCleanUp()
-        {
-            using (TagRepository tagRepo = new TagRepository(serverName))
-            {
-                var allTags = tagRepo.GetAll();
-                foreach (var tag in allTags)
-                {
-                    tagRepo.Delete(tag);
-                }
-            }
-            using (TextAnserwRepository textAnserwRepo = new TextAnserwRepository(serverName))
-            {
-                var allTextAnserws = textAnserwRepo.GetAll();
-                foreach (var text in allTextAnserws)
-                {
-                    textAnserwRepo.Delete(text);
-                }
-            }
-            using (FlashCardRepository flashCardRepository = new FlashCardRepository(serverName))
-            {
-                var allFlashCards = flashCardRepository.GetAll();
-                foreach (var flashCard in allFlashCards)
-                {
-                    flashCardRepository.Delete(flashCard);
-                }
-            }
+        //[TestCleanup]
+        //public void TestCleanUp()
+        //{
+        //    using (TagRepository tagRepo = new TagRepository(serverName))
+        //    {
+        //        var allTags = tagRepo.GetAll();
+        //        foreach (var tag in allTags)
+        //        {
+        //            tagRepo.Delete(tag);
+        //        }
+        //    }
+        //    using (TextAnserwRepository textAnserwRepo = new TextAnserwRepository(serverName))
+        //    {
+        //        var allTextAnserws = textAnserwRepo.GetAll();
+        //        foreach (var text in allTextAnserws)
+        //        {
+        //            textAnserwRepo.Delete(text);
+        //        }
+        //    }
+        //    using (FlashCardRepository flashCardRepository = new FlashCardRepository(serverName))
+        //    {
+        //        var allFlashCards = flashCardRepository.GetAll();
+        //        foreach (var flashCard in allFlashCards)
+        //        {
+        //            flashCardRepository.Delete(flashCard);
+        //        }
+        //    }
 
-        }
+        //}
 
         [TestMethod]
         public void TestFlashCardSetSaveToDB()
         {
             using (FlashCardRepository flashCardRepository = new FlashCardRepository(serverName))
             {
-                flashCardRepository.Context.FlashCards.Add(new FlashCard());
+                FlashCard flashCard = new FlashCard()
+                {
+                    Title = flashCardTitle,
+                    FileAnserws = new List<FileAnserw> { fileAnserw1, fileAnserw2 },
+                    TextAnserws = new List<TextAnserw> { textAnserw1, textAnserw2 },
+                    Tags = new List<Tag> { tag1, tag2 },
+                };
+                flashCardRepository.Context.FlashCards.Add(flashCard);
                 var flashCardsFromDb = flashCardRepository.GetAll();
                 var specyficFlashCard = flashCardsFromDb.Find(n => n.Title == flashCardTitle);
                 Assert.AreEqual(specyficFlashCard.Title, flashCardTitle);
+            }
+        }
+
+        [TestMethod]
+        public void TestFlashCardDeleteFromDB()
+        {
+            using (FlashCardRepository flashCardRepository = new FlashCardRepository(serverName))
+            {
+                var flashCardsFromDb = flashCardRepository.GetAll();
+                FlashCard flashCard = flashCardsFromDb.Find(n => n.Title == flashCardTitle);
+                using (var textAnserwRepository = new TextAnserwRepository(serverName))
+                {
+                    foreach (var item in flashCard.TextAnserws)
+                    {
+                        textAnserwRepository.Delete(item);
+                    }
+                }
+                //using (var fileAnserwRepository = new FileAnserwRepository(serverName))
+                //{
+                //    foreach (var item in flashCard.FileAnserws)
+                //    {
+                //        fileAnserwRepository.Delete(item);
+                //    }
+                //}
+                //using (var flashCardDataRepository = new FlashCardDataRepository(serverName))
+                //{
+                //    if (flashCard.FlashCardData != null)
+                //        flashCardDataRepository.Delete(flashCard.FlashCardData);
+                //}
+                //using (var tagRepository = new TagRepository(serverName))
+                //{
+                //    foreach (var item in flashCard.Tags)
+                //    {
+                //        tagRepository.Delete(item);
+                //    }
+                //}
+                Console.WriteLine(flashCard.Id);
+                int loadedId = flashCard.Id;
+                //flashCardRepository.Delete(flashCard);
+                flashCardsFromDb = flashCardRepository.GetAll();
+                var specyficFlashCard = flashCardsFromDb.Find(n => n.Id == loadedId);
+                Assert.AreEqual(specyficFlashCard, null);
+            }
+        }
+        [TestMethod]
+        public void TestFlashCardDeleteFromDB2()
+        {
+            FlashCard flashCard = new FlashCard { Id = 3013 };
+            using(var repo = new FlashCardRepository(serverName))
+            {
+                repo.Delete(flashCard);
             }
         }
     }

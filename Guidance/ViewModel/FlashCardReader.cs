@@ -53,19 +53,71 @@ namespace Guidance.ViewModel
         {
             using (FlashCardRepository flashCardRepository = new FlashCardRepository())
             {
+                flashCardRepository.Context.Configuration.LazyLoadingEnabled = false;
                 flashCardRepository.Context.FlashCards.Add(new FlashCard());
                 var flashCardsFromDb = flashCardRepository.GetAll();
-                return flashCardsFromDb.Find(n => n.Title == flashCardTitle);
+                FlashCard flashCard = flashCardsFromDb.Find(n => n.Title == flashCardTitle);
+                //flashCardRepository.Context.Entry(flashCard).Collection(x => x.FileAnserws).Load();
+                //flashCardRepository.Context.Entry(flashCard).Reference(x => x.FlashCardData).Load();
+                //flashCardRepository.Context.Entry(flashCard).Collection(x => x.Tags).Load();
+                //flashCardRepository.Context.Entry(flashCard).Collection(x => x.TextAnserws).Load();
+                //flashCardRepository.Context.Entry(flashCard).Reference(x => x.Title).Load();
+                return flashCard;
+            }
+        }
+
+        public void DeleteFlashCard2()
+        {
+            using(FlashCardRepository flashCardRepository = new FlashCardRepository())
+            {
+                //var x = flashCardRepository.Context.Tags.Where(b=>EF.Property<int>())
             }
         }
 
         public void DeleteFlashCard(FlashCard flashCard)
         {
-            using (FlashCardRepository flashCardRepository = new FlashCardRepository())
-            {
-                var allFlashCards = flashCardRepository.GetAll();
-                flashCardRepository.Delete(flashCard);
-            }
+            //using (FlashCardRepository flashCardRepository = new FlashCardRepository())
+            //{
+                //flashCardRepository.Context.Configuration.LazyLoadingEnabled = false;
+                //flashCardRepository.Context.FlashCards.Add(new FlashCard());
+                //var flashCardsFromDb = flashCardRepository.GetAll();
+                //FlashCard flashCard = flashCardsFromDb.Where(x => (string)x.Title == "asd").Select(p => p).First();
+                //flashCardRepository.Context.Entry(flashCard).Collection(x => x.FileAnserws).Load();
+                //flashCardRepository.Context.Entry(flashCard).Reference(x => x.FlashCardData).Load();
+                //flashCardRepository.Context.Entry(flashCard).Collection(x => x.Tags).Load();
+                //flashCardRepository.Context.Entry(flashCard).Collection(x => x.TextAnserws).Load();
+                //flashCardRepository.Context.Entry(flashCard).Reference(x => x.Title).Load();
+                using (var textAnserwRepository = new TextAnserwRepository())
+                {
+                    foreach (var item in flashCard.TextAnserws)
+                    {
+                        textAnserwRepository.Delete(item);
+                        textAnserwRepository.SaveChanges();
+                    }
+                }
+                using (var fileAnserwRepository = new FileAnserwRepository())
+                {
+                    foreach (var item in flashCard.FileAnserws)
+                    {
+                        fileAnserwRepository.Delete(item);
+                        fileAnserwRepository.SaveChanges();
+                    }
+                }
+                using (var flashCardDataRepository = new FlashCardDataRepository())
+                {
+                    if (flashCard.FlashCardData != null)
+                        flashCardDataRepository.Delete(flashCard.FlashCardData);
+                    flashCardDataRepository.SaveChanges();
+                }
+                //using (var tagRepository = new TagRepository())
+                //{
+                //    foreach (var item in flashCard.Tags)
+                //    {
+                //        tagRepository.Delete(item);
+                //    }
+                //}
+                //flashCardRepository.Delete(flashCard);
+            //}
         }
     }
 }

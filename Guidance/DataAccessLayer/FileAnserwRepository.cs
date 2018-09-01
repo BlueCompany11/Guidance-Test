@@ -13,6 +13,16 @@ namespace Guidance.DataAccessLayer
         {   
             Table = Context.FileAnserws;
         }
+        public int Delete(int id)
+        {
+            Context.Entry(new FileAnserw() { Id = id }).State = EntityState.Deleted;
+            return SaveChanges();
+        }
+        public Task<int> DeleteAsync(int id)
+        {
+            Context.Entry(new FileAnserw() { Id = id }).State = EntityState.Deleted;
+            return SaveChangesAsync();
+        }
 
     }
 }

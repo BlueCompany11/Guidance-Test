@@ -93,9 +93,9 @@ namespace Guidance.ViewModel
 
         public void Save()
         {
-            flashCard.FlashCardData = new FlashCardData();
             using (FlashCardRepository flashCardRepository = new FlashCardRepository())
             {
+                flashCard.FlashCardData = new FlashCardData();
                 flashCardRepository.Add(flashCard);
             }
         }
