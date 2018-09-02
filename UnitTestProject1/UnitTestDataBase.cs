@@ -154,7 +154,7 @@ namespace UnitTestFlashCards
         [TestMethod]
         public void TestFlashCardDeleteFromDB2()
         {
-            FlashCard flashCard = new FlashCard { Id = 3013 };
+            FlashCard flashCard = new FlashCard { Id = 1014 };
             using(var repo = new FlashCardRepository(serverName))
             {
                 repo.Delete(flashCard);

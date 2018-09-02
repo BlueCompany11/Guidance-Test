@@ -52,8 +52,10 @@ namespace Guidance.GUI
             {
                 return;
             }
-            FlashCardPreview flashCardPreview = (FlashCardPreview)showFlashCardsDataGrid.SelectedItem;
-            flashCardView.DeleteFlashCard(flashCardView.FindFlashCard(flashCardPreview.Title));
+            //FlashCardPreview flashCardPreview = (FlashCardPreview)showFlashCardsDataGrid.SelectedItem;
+            //flashCardView.DeleteFlashCard(flashCardView.FindFlashCard(flashCardPreview.Title));
+            //FlashCardPreview flashCardPreview = (FlashCardPreview)showFlashCardsDataGrid.SelectedItem;
+            flashCardView.DeleteFlashCard(null);
         }
 
         private void EditFlashCardButton_Click(object sender, RoutedEventArgs e)

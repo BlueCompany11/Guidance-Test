@@ -10,6 +10,7 @@ namespace Guidance.FlashCardModel
     public partial class FlashCardData
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]//dodane
         public int FlashCardId { get; set; }
 
         public bool? LastResult { get; set; }

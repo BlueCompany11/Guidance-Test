@@ -14,7 +14,7 @@ namespace Guidance.FlashCardModel
         [Required]
         public string Text { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [StringLength(100)]
