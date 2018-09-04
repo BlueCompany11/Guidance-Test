@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Guidance.FlashCardModel;
 using Guidance.IViewModel;
+using System.Collections.ObjectModel;
 
 namespace Guidance.ViewModel
 {
@@ -12,8 +15,6 @@ namespace Guidance.ViewModel
         public string Title { get; set; }
 
         public DateTime CreationDate { get; set; }
-
-        public List<string> Tags { get; set; }
 
         public DateTime LastOccurance { get; set; }
 

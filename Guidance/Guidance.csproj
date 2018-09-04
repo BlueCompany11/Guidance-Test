@@ -80,6 +80,7 @@
     <Compile Include="FlashCardModel\FlashCardMemorizer.cs" />
     <Compile Include="FlashCardModel\FlashCardPartial.cs" />
     <Compile Include="IViewModel\IAddFlashCard.cs" />
+    <Compile Include="IViewModel\IFlashCardEntryPage.cs" />
     <Compile Include="IViewModel\IFlashCardPreview.cs" />
     <Compile Include="IViewModel\IFlashCardView.cs" />
     <Compile Include="FlashCardModel\FileAnserw.cs" />
@@ -87,7 +88,9 @@
     <Compile Include="FlashCardModel\FlashCardData.cs" />
     <Compile Include="FlashCardModel\TextAnserw.cs" />
     <Compile Include="FlashCardModel\Tag.cs" />
+    <Compile Include="ViewModel\CommandHandler.cs" />
     <Compile Include="ViewModel\FlashCardAdd.cs" />
+    <Compile Include="ViewModel\FlashCardEntry.cs" />
     <Compile Include="ViewModel\FlashCardPreview.cs" />
     <Compile Include="ViewModel\FlashCardReader.cs" />
     <Page Include="GUI\AddFlashCardWindow.xaml">

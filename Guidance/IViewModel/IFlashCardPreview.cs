@@ -10,7 +10,6 @@ namespace Guidance.IViewModel
     {
         string Title { get; set; }
         DateTime CreationDate { get; set; }
-        List<string> Tags { get; set; }
         DateTime LastOccurance { get; set; }
     }
 }

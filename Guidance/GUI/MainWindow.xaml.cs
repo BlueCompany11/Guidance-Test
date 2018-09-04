@@ -168,7 +168,7 @@ namespace Guidance
 
         private void flashCardMenuListBoxItem_Selected(object sender, RoutedEventArgs e)
         {
-            mainFrame.Content = new FlashCardEditorPage(new FlashCardReader());
+            mainFrame.Content = new FlashCardEditorPage(new FlashCardEntry());
         }
     }
 }

@@ -39,12 +39,12 @@ namespace Guidance.ViewModel
                         flashCardPreview.Last().LastOccurance = default(DateTime);
                     }
                     var allTagsObj = allFlashCards[i].Tags.OfType<Tag>().ToList();
-                    var allTagsStrings = allTagsObj.Select(n => n.Tag1).ToList();
-                    if (allTagsStrings != null)
-                    {
-                        flashCardPreview.Last().Tags = new List<string>();
-                        flashCardPreview.Last().Tags.AddRange(allTagsStrings);
-                    }
+                    //var allTagsStrings = allTagsObj.Select(n => n.Tag1).ToList();
+                    //if (allTagsStrings != null)
+                    //{
+                    //    flashCardPreview.Last().Tags = new List<string>();
+                    //    flashCardPreview.Last().Tags.AddRange(allTagsStrings);
+                    //}
                 }
             }
             FlashCards = flashCardPreview;

@@ -24,15 +24,16 @@ namespace Guidance.GUI
     /// </summary>
     public partial class FlashCardEditorPage : Page
     {
-        IFlashCardView flashCardView;
+        IFlashCardEntryPage mainViewModel;
         public FlashCardEditorPage()
         {
             InitializeComponent();
         }
-        public FlashCardEditorPage(IFlashCardView newFlashCardView) : this()
+        public FlashCardEditorPage(IFlashCardEntryPage newFlashCardView) : this()
         {
-            flashCardView = newFlashCardView;
-            showFlashCardsDataGrid.ItemsSource = flashCardView.FlashCards;
+            this.DataContext = newFlashCardView;    //przy braku tej linijki selected item nie dziala binding
+            mainViewModel = newFlashCardView;
+            showFlashCardsDataGrid.ItemsSource = mainViewModel.FlashCardPreviews;
         }
 
         private void AddFlashCardButton_Click(object sender, RoutedEventArgs e)
@@ -55,7 +56,7 @@ namespace Guidance.GUI
             //FlashCardPreview flashCardPreview = (FlashCardPreview)showFlashCardsDataGrid.SelectedItem;
             //flashCardView.DeleteFlashCard(flashCardView.FindFlashCard(flashCardPreview.Title));
             //FlashCardPreview flashCardPreview = (FlashCardPreview)showFlashCardsDataGrid.SelectedItem;
-            flashCardView.DeleteFlashCard(null);
+            mainViewModel.DeleteSelectedFlashCard();
         }
 
         private void EditFlashCardButton_Click(object sender, RoutedEventArgs e)
@@ -65,7 +66,7 @@ namespace Guidance.GUI
                 return;
             }
             FlashCardPreview flashCardPreview = (FlashCardPreview)showFlashCardsDataGrid.SelectedItem;
-            var addFlashCardWindow = new AddFlashCardWindow(new FlashCardAdd(flashCardView.FindFlashCard(flashCardPreview.Title)));
+            var addFlashCardWindow = new AddFlashCardWindow();  //uzyc drugiego konstruktora
             addFlashCardWindow.ShowDialog();
         }
         
