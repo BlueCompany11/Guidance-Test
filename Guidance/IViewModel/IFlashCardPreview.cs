@@ -11,5 +11,6 @@ namespace Guidance.IViewModel
         string Title { get; set; }
         DateTime CreationDate { get; set; }
         DateTime LastOccurance { get; set; }
+        int Id { get; }
     }
 }

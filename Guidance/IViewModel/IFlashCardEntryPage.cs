@@ -5,14 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using Guidance.FlashCardModel;
+using System.Windows.Input;
+
 namespace Guidance.IViewModel
 {
     public interface IFlashCardEntryPage
     {
         ObservableCollection<IFlashCardPreview> FlashCardPreviews { get; set; }
         IFlashCardPreview SelectedFlashCard { get; set; }
-        void AddFlashCard();
-        void EditSelectedFlashCard();
-        void DeleteSelectedFlashCard();
+        ICommand AddFlashCardCommand { get; }
+        ICommand EditSelectedFlashCardCommand { get; }
+        ICommand DeleteSelectedFlashCardCommand { get; }
     }
 }

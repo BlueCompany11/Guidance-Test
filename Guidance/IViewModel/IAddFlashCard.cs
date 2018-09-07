@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Guidance.FlashCardModel;
 
 namespace Guidance.IViewModel
@@ -12,13 +13,20 @@ namespace Guidance.IViewModel
     {
         string Title { get; set; }
         ObservableCollection<string> Tags { get; set; }
-        void AddTextAnserw(string textAnserw, string annotation);
-        void AddFile(string path);
-        void AttachAnnotationToFile(string annotation);// dodanie annotation do pliku
-        void Save();
-        void PrintFlashCard();
-        void DeleteFile(string fileName);
+        string NewTag { get; set; }
+        ICommand AddTag { get; }
         ObservableCollection<string> FilesNames { get; }
-        ObservableCollection<string> TextAnserws { get; set; }
+        ICommand SaveFlashCard { get; }
+        string TextAnserw { get; set; }
+        string TextAnnotation { get; set; }
+        ICommand SaveTextAnserw { get; }
+        string FileAnnotation { get; set; }
+        ICommand AddFile { get; }
+        ICommand SaveFileAnserw { get; }
+        void PrintFlashCard();  //do usuniecia
+        ICommand DeleteTag { get; }
+        string SelectedTag { get; set; }
+        ObservableCollection<string> TextAnserws { get; }
+        FlashCard ReturnedFlashCard { get; }
     }
 }

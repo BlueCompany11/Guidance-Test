@@ -17,6 +17,11 @@ namespace Guidance.ViewModel
         public DateTime CreationDate { get; set; }
 
         public DateTime LastOccurance { get; set; }
+        public int Id { get; }
+        public FlashCardPreview(int id)
+        {
+            Id = id;
+        }
 
     }
 }

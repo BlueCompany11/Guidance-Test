@@ -33,7 +33,6 @@ namespace Guidance.GUI
         {
             this.DataContext = newFlashCardView;    //przy braku tej linijki selected item nie dziala binding
             mainViewModel = newFlashCardView;
-            showFlashCardsDataGrid.ItemsSource = mainViewModel.FlashCardPreviews;
         }
 
         private void AddFlashCardButton_Click(object sender, RoutedEventArgs e)
@@ -45,18 +44,6 @@ namespace Guidance.GUI
         private void test1(object sender, RoutedEventArgs e)
         {
 
-        }
-
-        private void DeleteFlashCardButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (showFlashCardsDataGrid.SelectedItem == null)
-            {
-                return;
-            }
-            //FlashCardPreview flashCardPreview = (FlashCardPreview)showFlashCardsDataGrid.SelectedItem;
-            //flashCardView.DeleteFlashCard(flashCardView.FindFlashCard(flashCardPreview.Title));
-            //FlashCardPreview flashCardPreview = (FlashCardPreview)showFlashCardsDataGrid.SelectedItem;
-            mainViewModel.DeleteSelectedFlashCard();
         }
 
         private void EditFlashCardButton_Click(object sender, RoutedEventArgs e)

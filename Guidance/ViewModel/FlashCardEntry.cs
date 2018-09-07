@@ -1,4 +1,6 @@
 ﻿using Guidance.DataAccessLayer;
+using Guidance.FlashCardModel;
+using Guidance.GUI;
 using Guidance.IViewModel;
 using System;
 using System.Collections.Generic;
@@ -15,8 +17,12 @@ namespace Guidance.ViewModel
     {
         public FlashCardEntry()
         {
-            selectedFlashCard = new FlashCardPreview();
-            canDeleteSelectedFlashCard = false;
+            //selectedFlashCard = new FlashCardPreview();
+            isFlashCardSelected = false;
+            LoadFlashCards();
+        }
+        private void LoadFlashCards()
+        {
             var flashCardPreview = new List<FlashCardPreview>();
             using (var flashCardRepository = new FlashCardRepository())
             {
@@ -24,7 +30,7 @@ namespace Guidance.ViewModel
                 for (int i = 0; i < allFlashCards.Count; i++)
                 {
                     //zabezpieczyc sie na wypadek braku danych
-                    flashCardPreview.Add(new FlashCardPreview());
+                    flashCardPreview.Add(new FlashCardPreview(allFlashCards[i].Id));
                     flashCardPreview.Last().Title = allFlashCards[i].Title;
                     flashCardPreview.Last().CreationDate = allFlashCards[i].FlashCardData.CreationDate;
                     if (allFlashCards[i].FlashCardData.LastOccurrence != null)
@@ -45,6 +51,7 @@ namespace Guidance.ViewModel
                 }
             }
             FlashCardPreviews = new ObservableCollection<IFlashCardPreview>(flashCardPreview);
+            OnPropertyChanged(nameof(FlashCardPreviews));
         }
         public ObservableCollection<IFlashCardPreview> FlashCardPreviews { get; set; }
 
@@ -59,8 +66,9 @@ namespace Guidance.ViewModel
             {
                 selectedFlashCard = value;
                 OnPropertyChanged("SelectedFlashCard");
-                canDeleteSelectedFlashCard = true;
-                deleteSelectedFlashCard.CanExecute(true);
+                isFlashCardSelected = true;
+                deleteSelectedFlashCard.CanExecute(isFlashCardSelected);
+                editSelectedFlashCard.CanExecute(isFlashCardSelected);
             }
         }
 
@@ -69,80 +77,71 @@ namespace Guidance.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-
+        private ICommand addFlashCardCommand;
+        public ICommand AddFlashCardCommand
+        {
+            get
+            {
+                return addFlashCardCommand ?? (addFlashCardCommand = new CommandHandler(AddFlashCard, true));
+            }
+        }
         public void AddFlashCard()
         {
-            throw new NotImplementedException();
+            var addFlashCardWindow = new AddFlashCardWindow(new FlashCardAdd());
+            addFlashCardWindow.ShowDialog();
+            if (!string.IsNullOrEmpty(addFlashCardWindow.addFlashCard.Title))
+            {
+                addFlashCardWindow.addFlashCard.ReturnedFlashCard.FlashCardData = new FlashCardData();
+                using (var repo = new FlashCardRepository())
+                {
+                    repo.Add(addFlashCardWindow.addFlashCard.ReturnedFlashCard);
+                }
+                LoadFlashCards();
+            }
         }
         private ICommand deleteSelectedFlashCard;
-        private bool canDeleteSelectedFlashCard;
+        private bool isFlashCardSelected;
         public ICommand DeleteSelectedFlashCardCommand
         {
             get
             {
-                return deleteSelectedFlashCard ?? (deleteSelectedFlashCard = new CommandHandler(DeleteSelectedFlashCard, canDeleteSelectedFlashCard));
+                return deleteSelectedFlashCard ?? (deleteSelectedFlashCard = new CommandHandler(DeleteSelectedFlashCard, isFlashCardSelected));
             }
         }
         public void DeleteSelectedFlashCard()
         {
-            //using (var repo = new FileAnserwRepository())
-            //{
-            //    var loop = repo.Context.FileAnserws.Where(n => n.FlashCard.Id == 13007).ToList();
-            //    foreach (var item in loop)
-            //    {
-            //        repo.Delete(item);
-            //    }
-            //    repo.SaveChanges();
-            //}
-            //using (var repo = new TextAnserwRepository())
-            //{
-            //    var loop = repo.Context.TextAnserws.Where(n => n.FlashCard.Id == 13007).ToList();
-            //    foreach (var item in loop)
-            //    {
-            //        repo.Delete(item);
-            //    }
-            //    repo.SaveChanges();
-            //}
-            //using (var repo = new FlashCardDataRepository())
-            //{
-            //    var loop = repo.Context.FlashCardDatas.Where(n => n.FlashCard.Id == 13007).ToList();
-            //    foreach (var item in loop)
-            //    {
-            //        repo.Delete(item);
-            //    }
-            //    repo.SaveChanges();
-            //}
-            //List<Tag> temp1 = new List<Tag>();
-            //using (var repo = new FlashCardRepository())
-            //{
-            //    //var flashCardsFromDb = repo.GetAll();
-            //    //FlashCard flashCard2 = flashCardsFromDb.Find(n => n.Id == 14007); //new FlashCard { Id = 13006 };
-            //    //var loop = repo.Context.FlashCards.Where(n => n.Id == 14007).ToList();
-            //    //var loop2 = loop.
-            //    var flashCardsFromDb = repo.GetAll();
-            //    FlashCard flashCard2 = flashCardsFromDb.Find(n => n.Id == 13007);
-            //    temp1 = flashCard2.Tags.ToList();
-            //}
-            //using (var repo = new TagRepository())
-            //{
-            //    foreach (var item in temp1)
-            //    {
-            //        repo.Delete(item);
-            //    }
-            //    repo.SaveChanges();
-            //}
-            //using (var repo = new FlashCardRepository())
-            //{
-            //    var flashCardsFromDb = repo.GetAll();
-            //    FlashCard flashCard2 = flashCardsFromDb.Find(n => n.Id == 13007);
-            //    repo.Delete(flashCard2);
-            //}
-            Console.WriteLine(SelectedFlashCard.Title);
+            using(var repo = new FlashCardRepository())
+            {
+                repo.Delete(selectedFlashCard.Id);
+            }
+            SelectedFlashCard = null;
+            LoadFlashCards();
         }
-
+        private ICommand editSelectedFlashCard;
+        public ICommand EditSelectedFlashCardCommand
+        {
+            get
+            {
+                return editSelectedFlashCard ?? (editSelectedFlashCard = new CommandHandler(EditSelectedFlashCard, isFlashCardSelected));
+            }
+        }
         public void EditSelectedFlashCard()
         {
-            throw new NotImplementedException();
+            var flashCard = new FlashCard();
+            using(var repo = new FlashCardRepository())
+            {
+                flashCard = repo.GetOne(selectedFlashCard.Id);
+                repo.Context.Entry(flashCard).Collection(x => x.Tags).Load();
+                repo.Context.Entry(flashCard).Collection(x => x.TextAnserws).Load();
+                repo.Context.Entry(flashCard).Collection(x => x.FileAnserws).Load();
+                Console.WriteLine(flashCard.Tags.Count);
+                Console.WriteLine(flashCard.Id);
+                var addFlashCardWindow = new AddFlashCardWindow(new FlashCardAdd(flashCard));
+                addFlashCardWindow.ShowDialog();
+                Console.WriteLine(addFlashCardWindow.addFlashCard.ReturnedFlashCard.Id);
+                repo.Save(addFlashCardWindow.addFlashCard.ReturnedFlashCard);
+            }
+            LoadFlashCards();
         }
     }
 }

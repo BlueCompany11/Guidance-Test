@@ -19,7 +19,7 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <DataGrid Name="showFlashCardsDataGrid" AutoGenerateColumns="False" IsReadOnly="True"
-                      SelectedItem="{Binding SelectedFlashCard}">
+                      ItemsSource="{Binding FlashCardPreviews}" SelectedItem="{Binding SelectedFlashCard}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Tytuł" Binding="{Binding Title}" />
                     <DataGridTextColumn Header="Data utworzenia" Binding="{Binding CreationDate}" />
@@ -32,9 +32,9 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Button x:Name="AddFlashCardButton" Content="Dodaj" Grid.Column="0" Margin="10" Click="AddFlashCardButton_Click"/>
-                <Button Name="EditFlashCardButton" Content="Edytuj" Grid.Column="1" Margin="10" Click="EditFlashCardButton_Click"/>
-                <Button Content="Usuń" Grid.Column="2" Margin="10" Click="DeleteFlashCardButton_Click" Command="{Binding DeleteSelectedFlashCardCommand}"/>
+                <Button x:Name="AddFlashCardButton" Content="Dodaj" Grid.Column="0" Margin="10" Command="{Binding AddFlashCardCommand}"/>
+                <Button Name="EditFlashCardButton" Content="Edytuj" Grid.Column="1" Margin="10" Command="{Binding EditSelectedFlashCardCommand}"/>
+                <Button Content="Usuń" Grid.Column="2" Margin="10" Command="{Binding DeleteSelectedFlashCardCommand}"/>
             </Grid>
             <Grid Grid.Column="1">
                 <StackPanel Orientation="Vertical">

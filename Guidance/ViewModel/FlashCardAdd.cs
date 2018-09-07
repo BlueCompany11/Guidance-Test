@@ -9,6 +9,7 @@ using Guidance.IViewModel;
 using Guidance.FlashCardModel;
 using System.IO;
 using System.ComponentModel;
+using System.Windows.Input;
 
 namespace Guidance.ViewModel
 {
@@ -16,13 +17,14 @@ namespace Guidance.ViewModel
     {
         public FlashCardAdd()
         {
-            this.flashCard = new FlashCard();
+            this.ReturnedFlashCard = new FlashCard();
         }
-        public FlashCardAdd(FlashCard flashCard):this()
+        public FlashCardAdd(FlashCard flashCard) : this()
         {
-            this.flashCard = flashCard;
+            this.ReturnedFlashCard = flashCard;
+            canSaveFlashCard = true;
         }
-        FlashCard flashCard;
+        public FlashCard ReturnedFlashCard { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string name)
@@ -32,82 +34,212 @@ namespace Guidance.ViewModel
 
         public string Title
         {
-            get => flashCard.Title;
+            get => ReturnedFlashCard.Title;
             set
             {
-                flashCard.Title = value;
+                ReturnedFlashCard.Title = value;
                 OnPropertyChanged("Title");
+                if (value != "")
+                {
+                    canSaveFlashCard = true;
+                }
+                else
+                {
+                    canSaveFlashCard = false;
+                }
+                saveFlashCard.CanExecute(canSaveFlashCard);
             }
         }
         public ObservableCollection<string> Tags
         {
-            get => new ObservableCollection<string>(flashCard.Tags.Select(x => x.Tag1).ToList());
+            get => new ObservableCollection<string>(ReturnedFlashCard.Tags.Select(x => x.Tag1).ToList());
             set
             {
-                flashCard.Tags = value.Select(tag => new Tag() { Tag1 = tag }).ToList();
+                ReturnedFlashCard.Tags = value.Select(tag => new Tag() { Tag1 = tag }).ToList();    //czy to dobrze?
+                OnPropertyChanged(nameof(Tags));
             }
         }
-
         public ObservableCollection<string> FilesNames
         {
-            get => new ObservableCollection<string>(flashCard.FileAnserws.Select(x => x.FileName).ToList());
-            //set
+            get => new ObservableCollection<string>(ReturnedFlashCard.FileAnserws.Select(x => x.FileName).ToList());
+        }
+        public ObservableCollection<string> TextAnserws { get; private set; } = new ObservableCollection<string>();
+        ICommand addTag;
+        bool canAddTagCommand;
+        public ICommand AddTag { get { return addTag ?? (addTag = new CommandHandler(AddTagCommand, canAddTagCommand)); } }
+        void AddTagCommand()
+        {
+            //Tags.Add(NewTag);
+            ReturnedFlashCard.Tags.Add(new Tag { Tag1 = NewTag });
+            NewTag = "";
+            OnPropertyChanged("Tags");
+        }
+        ICommand saveFlashCard;
+        bool canSaveFlashCard;
+        public ICommand SaveFlashCard { get { return saveFlashCard ?? (saveFlashCard = new CommandHandler(SaveCommand, canSaveFlashCard)); } }
+        void SaveCommand()
+        {
+            Console.WriteLine("zamykam");
+            //using (TagRepository repo = new TagRepository())
             //{
-                //otrzymuje liste nazw plikow - patrze ktorego nie ma i kasuje z flashCard
-                //znajduje brakujace elementy
-                //var fileNamesToDelete = flashCard.FileAnserws.Select(x => x.FileName).Except(value).ToList();
-                //usuwam je z listy flash card i zatwierdzam nowa liste
-                //flashCard.FileAnserws = flashCard.FileAnserws.Where(x => !fileNamesToDelete.Any(s => s.Contains(x.FileName))).ToList();
-
+            //    foreach (var item in flashCard.Tags)
+            //    {
+            //        repo.Add(item);
+            //    }
             //}
-        }
-        //public ObservableCollection<string> TextAnserws { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public ObservableCollection<string> TextAnserws { get; set; }
-        public void AddTextAnserw(string textAnserw, string textAnserwAnnotation)
-        {
-            flashCard.TextAnserws.Add(new TextAnserw { Text = textAnserw, Annotation = textAnserwAnnotation });
-        }
+            //using (FlashCardRepository flashCardRepository = new FlashCardRepository())
+            //{
+            //    //dodanie
+            //    //flashCard.FlashCardData = new FlashCardData();
+            //    //flashCardRepository.Add(flashCard);
+            //    //Console.WriteLine(flashCard.Id);
+            //    //Console.WriteLine("Powinno sie zamknac okno");
+            //    //update
+            //    //var tempFlashCard = flashCardRepository.GetOne(flashCard.Id);
+            //    //Console.WriteLine(tempFlashCard.Title);
+            //    Console.WriteLine(flashCard.Id);
+            //    //Console.WriteLine(tempFlashCard.Id);
+            //    flashCardRepository.Save(flashCard);
+            //}
 
-        public void AttachAnnotationToFile(string annotation)
-        {
-            try
-            {
-                var currentFileAnserw = flashCard.FileAnserws.Last();
-                currentFileAnserw.Annotation = annotation;
-                //nowe file zostlao zatwierdzone
-                OnPropertyChanged("FilesNames");
-            }
-            catch (Exception) { };  //if empty do nothing
         }
-
-        public void AddFile(string filePath)
+        string textAnserw;
+        public string TextAnserw
         {
-            var file = File.ReadAllBytes(filePath);
-            var fileName = Path.GetFileName(filePath);
-            if(flashCard.FileAnserws.Any(n=>n.FileName == fileName))
+            get { return textAnserw; }
+            set
             {
-                return; // do nothing cuz this file is already there
-            }
-            flashCard.FileAnserws.Add(new FileAnserw { File = file, FileName = fileName });
-        }
-
-        public void Save()
-        {
-            using (FlashCardRepository flashCardRepository = new FlashCardRepository())
-            {
-                flashCard.FlashCardData = new FlashCardData();
-                flashCardRepository.Add(flashCard);
+                textAnserw = value;
+                OnPropertyChanged("TextAnserw");
+                if (value != "")
+                {
+                    canSaveTextAnserw = true;
+                }
+                else
+                {
+                    canSaveTextAnserw = false;
+                }
+                SaveTextAnserw.CanExecute(canSaveTextAnserw);
             }
         }
+        string textAnnotation;
+        public string TextAnnotation { get { return textAnnotation; } set { textAnnotation = value; OnPropertyChanged("TextAnnotation"); } }
+        ICommand saveTextAnserw;
+        bool canSaveTextAnserw;
+        public ICommand SaveTextAnserw { get { return saveTextAnserw ?? (saveTextAnserw = new CommandHandler(SaveTextAnserwCommand, canSaveTextAnserw)); } }
+        void SaveTextAnserwCommand()
+        {
+            ReturnedFlashCard.TextAnserws.Add(new TextAnserw { Text = textAnnotation, Annotation = textAnnotation });
+            TextAnserws.Add(TextAnnotation);
+            TextAnnotation = "";
+            TextAnserw = "";
+
+        }
+        string fileAnnotation;
+        public string FileAnnotation { get { return fileAnnotation; } set { fileAnnotation = value; OnPropertyChanged("FileAnnotation"); } }
+        ICommand addFile;
+        public ICommand AddFile
+        {
+            get { return addFile ?? (addFile = new CommandHandler(AddFileCommand, true)); }
+        }
+        void AddFileCommand()
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            bool? result = dlg.ShowDialog();
+            if (result == true)
+            {
+                string filePath = dlg.FileName;
+                currentFileAnserw.File = File.ReadAllBytes(filePath);
+                currentFileAnserw.FileName = Path.GetFileName(filePath);
+                canSaveFileAnserw = true;
+                saveFileAnserw.CanExecute(canSaveFileAnserw);
+            }
+        }
+        FileAnserw currentFileAnserw = new FileAnserw();
+        ICommand saveFileAnserw;
+        bool canSaveFileAnserw;
+        public ICommand SaveFileAnserw { get { return saveFileAnserw ?? (saveFileAnserw = new CommandHandler(SaveFileAnserwCommand, canSaveFileAnserw)); } }
+        void SaveFileAnserwCommand()
+        {
+            //string filePath = flashCard.FileAnserws.Last().FileName;
+            //var file = File.ReadAllBytes(filePath);
+            //var fileName = Path.GetFileName(filePath);
+            //if (flashCard.FileAnserws.Any(n => n.FileName == fileName))   //zamienic to na boola we wlasciwosci chyba jednak nie ma potrzeby skoro jest podglad
+            //{
+            //    return; // do nothing cuz this file is already there
+            //}
+            currentFileAnserw.Annotation = FileAnnotation;
+            ReturnedFlashCard.FileAnserws.Add(currentFileAnserw);
+            canSaveFileAnserw = false;
+            saveFileAnserw.CanExecute(canSaveFileAnserw);
+            FileAnnotation = "";
+            OnPropertyChanged(nameof(FilesNames));
+        }
+        string newTag;
+        public string NewTag
+        {
+            get { return newTag; }
+            set {
+                newTag = value;
+                OnPropertyChanged("NewTag");
+                if (value != "")
+                {
+                    canAddTagCommand = true;
+                }
+                else
+                    canAddTagCommand = false;
+                addTag.CanExecute(canAddTagCommand);
+            }
+        }
+        ICommand deleteTag;
+        bool canDeleteTag;
+        public ICommand DeleteTag
+        {
+            get
+            {
+                return deleteTag ?? (deleteTag = new CommandHandler(DeleteTagCommand, canDeleteTag));
+            }
+        }
+        void DeleteTagCommand()
+        {
+            Tags = new ObservableCollection<string>(Tags.Where(tag => tag != SelectedTag).ToList());
+            Console.WriteLine(Tags);
+            OnPropertyChanged("Tags");
+            SelectedTag = null;
+        }
+        string selectedTag;
+        public string SelectedTag
+        {
+            get
+            {
+                return selectedTag;
+            }
+            set
+            {
+                selectedTag = value;
+                OnPropertyChanged("SelectedTag");
+                if(selectedTag != "" && selectedTag != null)
+                {
+                    canDeleteTag = true;
+                }
+                else
+                {
+                    canDeleteTag = false;
+                }
+                DeleteTag.CanExecute(canDeleteTag);
+            }
+        }
+
         public void PrintFlashCard()
         {
-            Console.WriteLine(flashCard);
+            Console.WriteLine(SelectedTag);
+            Console.WriteLine(ReturnedFlashCard);
         }
 
-        public void DeleteFile(string fileName)
-        {
-            flashCard.FileAnserws = flashCard.FileAnserws.Where(x => x.FileName != fileName).ToList();
-            OnPropertyChanged("FilesNames");
-        }
+        //public void DeleteFile(string fileName)
+        //{
+        //    flashCard.FileAnserws = flashCard.FileAnserws.Where(x => x.FileName != fileName).ToList();
+        //    OnPropertyChanged("FilesNames");
+        //}
     }
 }
