@@ -23,6 +23,7 @@ namespace Guidance.ViewModel
         {
             this.ReturnedFlashCard = flashCard;
             canSaveFlashCard = true;
+            //TextAnserws = TextAnserws;
         }
         public FlashCard ReturnedFlashCard { get; private set; }
 
@@ -63,7 +64,10 @@ namespace Guidance.ViewModel
         {
             get => new ObservableCollection<string>(ReturnedFlashCard.FileAnserws.Select(x => x.FileName).ToList());
         }
-        public ObservableCollection<string> TextAnserws { get; private set; } = new ObservableCollection<string>();
+        public ObservableCollection<string> TextAnserws
+        {
+            get => new ObservableCollection<string>(ReturnedFlashCard.TextAnserws.Select(x => x.Annotation).ToList());
+        }
         ICommand addTag;
         bool canAddTagCommand;
         public ICommand AddTag { get { return addTag ?? (addTag = new CommandHandler(AddTagCommand, canAddTagCommand)); } }
@@ -80,28 +84,6 @@ namespace Guidance.ViewModel
         void SaveCommand()
         {
             Console.WriteLine("zamykam");
-            //using (TagRepository repo = new TagRepository())
-            //{
-            //    foreach (var item in flashCard.Tags)
-            //    {
-            //        repo.Add(item);
-            //    }
-            //}
-            //using (FlashCardRepository flashCardRepository = new FlashCardRepository())
-            //{
-            //    //dodanie
-            //    //flashCard.FlashCardData = new FlashCardData();
-            //    //flashCardRepository.Add(flashCard);
-            //    //Console.WriteLine(flashCard.Id);
-            //    //Console.WriteLine("Powinno sie zamknac okno");
-            //    //update
-            //    //var tempFlashCard = flashCardRepository.GetOne(flashCard.Id);
-            //    //Console.WriteLine(tempFlashCard.Title);
-            //    Console.WriteLine(flashCard.Id);
-            //    //Console.WriteLine(tempFlashCard.Id);
-            //    flashCardRepository.Save(flashCard);
-            //}
-
         }
         string textAnserw;
         public string TextAnserw
