@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Guidance.FlashCardModel;
-using Guidance.IViewModel;
+using Guidance.IView;
 using System.Collections.ObjectModel;
 
 namespace Guidance.ViewModel

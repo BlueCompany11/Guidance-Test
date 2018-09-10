@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Guidance.FlashCardModel;
 
-namespace Guidance.IViewModel
+namespace Guidance.IView
 {
-    public interface IAddFlashCard
+    public interface IFlashCardDetails
     {
         string Title { get; set; }
         ObservableCollection<string> Tags { get; }

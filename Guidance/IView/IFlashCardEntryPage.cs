@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 using Guidance.FlashCardModel;
 using System.Windows.Input;
 
-namespace Guidance.IViewModel
+namespace Guidance.IView
 {
     public interface IFlashCardEntryPage
     {

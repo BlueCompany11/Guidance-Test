@@ -13,21 +13,21 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Guidance.IViewModel;
+using Guidance.IView;
 namespace Guidance.GUI
 {
     /// <summary>
     /// Interaction logic for AddFlashCardWindow.xaml
     /// </summary>
-    public partial class AddFlashCardWindow : Window
+    public partial class FlashCardDetailsWindow : Window
     {
-        public IAddFlashCard addFlashCard;
-        public AddFlashCardWindow()
+        public IFlashCardDetails addFlashCard;
+        public FlashCardDetailsWindow()
         {
             InitializeComponent();
         }
 
-        public AddFlashCardWindow(IAddFlashCard addFlashCardVM):this()
+        public FlashCardDetailsWindow(IFlashCardDetails addFlashCardVM):this()
         {
             addFlashCard = addFlashCardVM;
             this.DataContext = addFlashCard;

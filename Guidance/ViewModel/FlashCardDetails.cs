@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Guidance.DataAccessLayer;
-using Guidance.IViewModel;
+using Guidance.IView;
 using Guidance.FlashCardModel;
 using System.IO;
 using System.ComponentModel;
@@ -13,13 +13,13 @@ using System.Windows.Input;
 
 namespace Guidance.ViewModel
 {
-    public class FlashCardAdd : IAddFlashCard, INotifyPropertyChanged
+    public class FlashCardDetails : IFlashCardDetails, INotifyPropertyChanged
     {
-        public FlashCardAdd()
+        public FlashCardDetails()
         {
             this.ReturnedFlashCard = new FlashCard();
         }
-        public FlashCardAdd(FlashCard flashCard) : this()
+        public FlashCardDetails(FlashCard flashCard) : this()
         {
             this.ReturnedFlashCard = flashCard;
             canSaveFlashCard = true;

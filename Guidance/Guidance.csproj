@@ -79,26 +79,24 @@
     <Compile Include="FlashCardModel\FlashCardDataPartial.cs" />
     <Compile Include="FlashCardModel\FlashCardMemorizer.cs" />
     <Compile Include="FlashCardModel\FlashCardPartial.cs" />
-    <Compile Include="IViewModel\IAddFlashCard.cs" />
-    <Compile Include="IViewModel\IFlashCardEntryPage.cs" />
-    <Compile Include="IViewModel\IFlashCardPreview.cs" />
-    <Compile Include="IViewModel\IFlashCardView.cs" />
+    <Compile Include="IView\IFlashCardDetails.cs" />
+    <Compile Include="IView\IFlashCardEntryPage.cs" />
+    <Compile Include="IView\IFlashCardPreview.cs" />
     <Compile Include="FlashCardModel\FileAnserw.cs" />
     <Compile Include="FlashCardModel\FlashCard.cs" />
     <Compile Include="FlashCardModel\FlashCardData.cs" />
     <Compile Include="FlashCardModel\TextAnserw.cs" />
     <Compile Include="FlashCardModel\Tag.cs" />
-    <Compile Include="ViewModel\ButtonCloseWindow.cs" />
+    <Compile Include="View\ButtonCloseWindow.cs" />
     <Compile Include="ViewModel\CommandHandler.cs" />
-    <Compile Include="ViewModel\FlashCardAdd.cs" />
+    <Compile Include="ViewModel\FlashCardDetails.cs" />
     <Compile Include="ViewModel\FlashCardEntry.cs" />
     <Compile Include="ViewModel\FlashCardPreview.cs" />
-    <Compile Include="ViewModel\FlashCardReader.cs" />
-    <Page Include="GUI\AddFlashCardWindow.xaml">
+    <Page Include="GUI\FlashCardDetailsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\FlashCardEditorPage.xaml">
+    <Page Include="GUI\FlashCardsEntryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -111,11 +109,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DataAccessLayer\FlashCardsEntities.cs" />
-    <Compile Include="GUI\AddFlashCardWindow.xaml.cs">
-      <DependentUpon>AddFlashCardWindow.xaml</DependentUpon>
+    <Compile Include="GUI\FlashCardDetailsWindow.xaml.cs">
+      <DependentUpon>FlashCardDetailsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\FlashCardEditorPage.xaml.cs">
-      <DependentUpon>FlashCardEditorPage.xaml</DependentUpon>
+    <Compile Include="GUI\FlashCardsEntryPage.xaml.cs">
+      <DependentUpon>FlashCardsEntryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -163,6 +161,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="IViewModel\" />
+    <Folder Include="Model\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,7 +1,7 @@
 ﻿using Guidance.DataAccessLayer;
 using Guidance.FlashCardModel;
 using Guidance.GUI;
-using Guidance.IViewModel;
+using Guidance.IView;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,7 +17,6 @@ namespace Guidance.ViewModel
     {
         public FlashCardEntry()
         {
-            //selectedFlashCard = new FlashCardPreview();
             isFlashCardSelected = false;
             LoadFlashCards();
         }
@@ -41,13 +40,6 @@ namespace Guidance.ViewModel
                     {
                         flashCardPreview.Last().LastOccurance = default(DateTime);
                     }
-                    //var allTagsObj = allFlashCards[i].Tags.OfType<Tag>().ToList();
-                    //var allTagsStrings = allTagsObj.Select(n => n.Tag1).ToList();
-                    //if (allTagsStrings != null)
-                    //{
-                    //    flashCardPreview.Last().Tags = new List<string>();
-                    //    flashCardPreview.Last().Tags.AddRange(allTagsStrings);
-                    //}
                 }
             }
             FlashCardPreviews = new ObservableCollection<IFlashCardPreview>(flashCardPreview);
@@ -87,7 +79,7 @@ namespace Guidance.ViewModel
         }
         public void AddFlashCard()
         {
-            var addFlashCardWindow = new AddFlashCardWindow(new FlashCardAdd());
+            var addFlashCardWindow = new FlashCardDetailsWindow(new FlashCardDetails());
             addFlashCardWindow.ShowDialog();
             //dodac do okna wlasciwosc czy zmiany maja zostac zapisane i zmienic sposob definiowania wylaczania ekarnu
             if (!string.IsNullOrEmpty(addFlashCardWindow.addFlashCard.Title) && addFlashCardWindow.addFlashCard.Save)
@@ -135,7 +127,7 @@ namespace Guidance.ViewModel
                 repo.Context.Entry(flashCard).Collection(x => x.Tags).Load();
                 repo.Context.Entry(flashCard).Collection(x => x.TextAnserws).Load();
                 repo.Context.Entry(flashCard).Collection(x => x.FileAnserws).Load();
-                var addFlashCardWindow = new AddFlashCardWindow(new FlashCardAdd(flashCard));
+                var addFlashCardWindow = new FlashCardDetailsWindow(new FlashCardDetails(flashCard));
                 addFlashCardWindow.ShowDialog();
                 Console.WriteLine(addFlashCardWindow.addFlashCard.Save);
                 if (addFlashCardWindow.addFlashCard.Save)
