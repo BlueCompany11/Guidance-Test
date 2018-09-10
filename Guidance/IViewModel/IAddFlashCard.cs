@@ -23,10 +23,10 @@ namespace Guidance.IViewModel
         string FileAnnotation { get; set; }
         ICommand AddFile { get; }
         ICommand SaveFileAnserw { get; }
-        void PrintFlashCard();  //do usuniecia
         ICommand DeleteTag { get; }
         string SelectedTag { get; set; }
         ObservableCollection<string> TextAnserws { get; }
         FlashCard ReturnedFlashCard { get; }
+        ICommand MaterializeFlashCardAnserws { get; }
     }
 }

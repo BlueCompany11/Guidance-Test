@@ -32,11 +32,5 @@ namespace Guidance.GUI
             addFlashCard = addFlashCardVM;
             this.DataContext = addFlashCard;
         }
-
-        private void TestData(object sender, RoutedEventArgs e)
-        {
-            addFlashCard.PrintFlashCard();
-        }
-
     }
 }

@@ -23,6 +23,7 @@ namespace Guidance.ViewModel
         {
             this.ReturnedFlashCard = flashCard;
             canSaveFlashCard = true;
+            canMaterializeFlashCardAnserws = true;
             //TextAnserws = TextAnserws;
         }
         public FlashCard ReturnedFlashCard { get; private set; }
@@ -211,11 +212,33 @@ namespace Guidance.ViewModel
                 DeleteTag.CanExecute(canDeleteTag);
             }
         }
-
-        public void PrintFlashCard()
+        ICommand materializeFlashCardAnserws;
+        bool canMaterializeFlashCardAnserws;
+        public ICommand MaterializeFlashCardAnserws
         {
-            Console.WriteLine(SelectedTag);
-            Console.WriteLine(ReturnedFlashCard);
+            get
+            {
+                return materializeFlashCardAnserws ?? (materializeFlashCardAnserws = new CommandHandler(MaterializeFlashCardAnserwsCommand, canMaterializeFlashCardAnserws));
+            }
+        }
+
+        void MaterializeFlashCardAnserwsCommand()
+        {
+            //utworz folder o nazwie flash card i sciezce domyslnej na pulpit z folderem Guidance
+            string folderName = ReturnedFlashCard.Title;
+            string mainFolderName = "//Guidance//";
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)+ mainFolderName;
+            if (!Directory.Exists(path))
+            {
+                DirectoryInfo di2 = Directory.CreateDirectory(path);
+            }    
+            path += folderName;
+            DirectoryInfo di = Directory.CreateDirectory(path);
+            foreach (var item in ReturnedFlashCard.FileAnserws)
+            {
+                //sprawdzic czy annotation jest puste
+                File.WriteAllBytes(path + "//" + item.FileName, item.File);
+            }
         }
 
         //public void DeleteFile(string fileName)

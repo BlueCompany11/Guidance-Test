@@ -4,7 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:local="clr-namespace:Guidance.ViewModel"
         Title="AddFlashCardWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <i:Interaction.Behaviors>
+        <local:ButtonCloseWindow x:Name="buttonClose" Przycisk ="{Binding ElementName = closeButton}"></local:ButtonCloseWindow>
+    </i:Interaction.Behaviors>
     <Grid>
         <Grid Margin="5">
             <Grid.ColumnDefinitions>
@@ -103,8 +108,9 @@
                     <ListBox Name="textAnserwsList" ItemsSource="{Binding Path=TextAnserws}"></ListBox>
                 </Grid>
             </Grid>
-            <Button Grid.Row="3" Margin="10" Command="{Binding SaveFlashCard}" IsCancel="True">Dodaj fiszke</Button>
-            <Button Grid.Row="3" Grid.Column="1" Margin="10" Content="Test1" Click="TestData"/>
+            <Button Grid.Row="3" Margin="10" Name="closeButton" Command="{Binding SaveFlashCard}" Content="Dodaj fiszkę">
+            </Button>
+            <Button Grid.Row="3" Grid.Column="1" Margin="10" Content="Pobierz pliki" Command="{Binding MaterializeFlashCardAnserws}"/>
         </Grid>
     </Grid>
 </Window>

@@ -89,6 +89,7 @@ namespace Guidance.ViewModel
         {
             var addFlashCardWindow = new AddFlashCardWindow(new FlashCardAdd());
             addFlashCardWindow.ShowDialog();
+            //dodac do okna wlasciwosc czy zmiany maja zostac zapisane i zmienic sposob definiowania wylaczania ekarnu
             if (!string.IsNullOrEmpty(addFlashCardWindow.addFlashCard.Title))
             {
                 addFlashCardWindow.addFlashCard.ReturnedFlashCard.FlashCardData = new FlashCardData();
