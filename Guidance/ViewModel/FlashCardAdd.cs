@@ -24,7 +24,6 @@ namespace Guidance.ViewModel
             this.ReturnedFlashCard = flashCard;
             canSaveFlashCard = true;
             canMaterializeFlashCardAnserws = true;
-            //TextAnserws = TextAnserws;
         }
         public FlashCard ReturnedFlashCard { get; private set; }
 
@@ -84,7 +83,7 @@ namespace Guidance.ViewModel
         public ICommand SaveFlashCard { get { return saveFlashCard ?? (saveFlashCard = new CommandHandler(SaveCommand, canSaveFlashCard)); } }
         void SaveCommand()
         {
-            Console.WriteLine("zamykam");
+            Save = true;
         }
         string textAnserw;
         public string TextAnserw
@@ -222,12 +221,13 @@ namespace Guidance.ViewModel
             }
         }
 
+        public bool Save { get; private set; }
         void MaterializeFlashCardAnserwsCommand()
         {
             //utworz folder o nazwie flash card i sciezce domyslnej na pulpit z folderem Guidance
             string folderName = ReturnedFlashCard.Title;
             string mainFolderName = "//Guidance//";
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)+ mainFolderName;
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + mainFolderName;
             if (!Directory.Exists(path))
             {
                 DirectoryInfo di2 = Directory.CreateDirectory(path);

@@ -28,5 +28,6 @@ namespace Guidance.IViewModel
         ObservableCollection<string> TextAnserws { get; }
         FlashCard ReturnedFlashCard { get; }
         ICommand MaterializeFlashCardAnserws { get; }
+        bool Save { get; }
     }
 }

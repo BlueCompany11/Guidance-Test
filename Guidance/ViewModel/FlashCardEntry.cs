@@ -90,7 +90,7 @@ namespace Guidance.ViewModel
             var addFlashCardWindow = new AddFlashCardWindow(new FlashCardAdd());
             addFlashCardWindow.ShowDialog();
             //dodac do okna wlasciwosc czy zmiany maja zostac zapisane i zmienic sposob definiowania wylaczania ekarnu
-            if (!string.IsNullOrEmpty(addFlashCardWindow.addFlashCard.Title))
+            if (!string.IsNullOrEmpty(addFlashCardWindow.addFlashCard.Title) && addFlashCardWindow.addFlashCard.Save)
             {
                 addFlashCardWindow.addFlashCard.ReturnedFlashCard.FlashCardData = new FlashCardData();
                 using (var repo = new FlashCardRepository())
@@ -135,12 +135,13 @@ namespace Guidance.ViewModel
                 repo.Context.Entry(flashCard).Collection(x => x.Tags).Load();
                 repo.Context.Entry(flashCard).Collection(x => x.TextAnserws).Load();
                 repo.Context.Entry(flashCard).Collection(x => x.FileAnserws).Load();
-                Console.WriteLine(flashCard.Tags.Count);
-                Console.WriteLine(flashCard.Id);
                 var addFlashCardWindow = new AddFlashCardWindow(new FlashCardAdd(flashCard));
                 addFlashCardWindow.ShowDialog();
-                Console.WriteLine(addFlashCardWindow.addFlashCard.ReturnedFlashCard.Id);
-                repo.Save(addFlashCardWindow.addFlashCard.ReturnedFlashCard);
+                Console.WriteLine(addFlashCardWindow.addFlashCard.Save);
+                if (addFlashCardWindow.addFlashCard.Save)
+                {
+                    repo.Save(addFlashCardWindow.addFlashCard.ReturnedFlashCard);
+                }
             }
             LoadFlashCards();
         }
