@@ -185,7 +185,6 @@ namespace Guidance.ViewModel
         void DeleteTagCommand()
         {
             Tags = new ObservableCollection<string>(Tags.Where(tag => tag != SelectedTag).ToList());
-            Console.WriteLine(Tags);
             OnPropertyChanged("Tags");
             SelectedTag = null;
         }
@@ -240,11 +239,5 @@ namespace Guidance.ViewModel
                 File.WriteAllBytes(path + "//" + item.FileName, item.File);
             }
         }
-
-        //public void DeleteFile(string fileName)
-        //{
-        //    flashCard.FileAnserws = flashCard.FileAnserws.Where(x => x.FileName != fileName).ToList();
-        //    OnPropertyChanged("FilesNames");
-        //}
     }
 }

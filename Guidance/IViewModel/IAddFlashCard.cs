@@ -12,7 +12,7 @@ namespace Guidance.IViewModel
     public interface IAddFlashCard
     {
         string Title { get; set; }
-        ObservableCollection<string> Tags { get; set; }
+        ObservableCollection<string> Tags { get; }
         string NewTag { get; set; }
         ICommand AddTag { get; }
         ObservableCollection<string> FilesNames { get; }
