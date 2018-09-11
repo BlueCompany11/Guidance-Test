@@ -78,10 +78,14 @@ namespace Guidance.ViewModel
             }
         }
         public void AddFlashCard()
-        {
-            var addFlashCardWindow = new FlashCardDetailsWindow(new FlashCardDetails());
+        {   //zmienic kontruktor
+            List<string> tags = new List<string>();
+            using(var repo = new TagRepository())
+            {
+                tags = repo.GetAll().Select(x => x.Tag1).Distinct().ToList();
+            }
+            var addFlashCardWindow = new FlashCardDetailsWindow(new FlashCardDetails(new FlashCard(), tags));
             addFlashCardWindow.ShowDialog();
-            //dodac do okna wlasciwosc czy zmiany maja zostac zapisane i zmienic sposob definiowania wylaczania ekarnu
             if (!string.IsNullOrEmpty(addFlashCardWindow.addFlashCard.Title) && addFlashCardWindow.addFlashCard.Save)
             {
                 addFlashCardWindow.addFlashCard.ReturnedFlashCard.FlashCardData = new FlashCardData();
@@ -121,13 +125,18 @@ namespace Guidance.ViewModel
         public void EditSelectedFlashCard()
         {
             var flashCard = new FlashCard();
-            using(var repo = new FlashCardRepository())
+            List<string> tags = new List<string>();
+            using (var repo = new TagRepository())
+            {
+                tags = repo.GetAll().Select(x => x.Tag1).Distinct().ToList();
+            }
+            using (var repo = new FlashCardRepository())
             {
                 flashCard = repo.GetOne(selectedFlashCard.Id);
                 repo.Context.Entry(flashCard).Collection(x => x.Tags).Load();
                 repo.Context.Entry(flashCard).Collection(x => x.TextAnserws).Load();
                 repo.Context.Entry(flashCard).Collection(x => x.FileAnserws).Load();
-                var addFlashCardWindow = new FlashCardDetailsWindow(new FlashCardDetails(flashCard));
+                var addFlashCardWindow = new FlashCardDetailsWindow(new FlashCardDetails(flashCard, tags));
                 addFlashCardWindow.ShowDialog();
                 Console.WriteLine(addFlashCardWindow.addFlashCard.Save);
                 if (addFlashCardWindow.addFlashCard.Save)

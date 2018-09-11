@@ -29,5 +29,6 @@ namespace Guidance.IView
         FlashCard ReturnedFlashCard { get; }
         ICommand MaterializeFlashCardAnserws { get; }
         bool Save { get; }
+        ObservableCollection<string> AllTags { get; }
     }
 }

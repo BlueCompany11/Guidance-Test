@@ -25,6 +25,10 @@ namespace Guidance.ViewModel
             canSaveFlashCard = true;
             canMaterializeFlashCardAnserws = true;
         }
+        public FlashCardDetails(FlashCard flashCard, List<string> tags) : this(flashCard)
+        {
+            AllTags = new ObservableCollection<string>(tags);
+        }
         public FlashCard ReturnedFlashCard { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -221,6 +225,9 @@ namespace Guidance.ViewModel
         }
 
         public bool Save { get; private set; }
+
+        public ObservableCollection<string> AllTags { get; private set; }
+
         void MaterializeFlashCardAnserwsCommand()
         {
             //utworz folder o nazwie flash card i sciezce domyslnej na pulpit z folderem Guidance
