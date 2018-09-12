@@ -16,5 +16,6 @@ namespace Guidance.IView
         ICommand AddFlashCardCommand { get; }
         ICommand EditSelectedFlashCardCommand { get; }
         ICommand DeleteSelectedFlashCardCommand { get; }
+        ICommand StartFlashCardRecall { get; }
     }
 }

@@ -15,20 +15,54 @@ namespace Guidance.ViewModel
 {
     public class FlashCardDetails : IFlashCardDetails, INotifyPropertyChanged
     {
-        //public FlashCardDetails()
-        //{
-        //    this.ReturnedFlashCard = new FlashCard();
-        //}
-        public FlashCardDetails(FlashCard flashCard) //: this()
+        FlashCardFactory flashCardFactory;
+        #region ctors
+        /// <summary>
+        /// Can be used when need to create new flash card. No help providers will appear.
+        /// </summary>
+        public FlashCardDetails()
         {
-            this.ReturnedFlashCard = flashCard;
+            AllTags = new ObservableCollection<string>();
+            flashCardFactory = new FlashCardFactory();
+            ReturnedFlashCard = flashCardFactory.GetFlashCard();
             canSaveFlashCard = true;
             canMaterializeFlashCardAnserws = true;
         }
-        public FlashCardDetails(FlashCard flashCard, List<string> tags) : this(flashCard)
+        /// <summary>
+        /// Can be used when need to create new flash card. 
+        /// </summary>
+        /// <param name="tags">Provides list of tags which will appear during tag insertion. </param>
+        public FlashCardDetails(List<string> tags):this()
         {
             AllTags = new ObservableCollection<string>(tags);
         }
+        /// <summary>
+        /// Can be used when class has to load flash card on it's own
+        /// </summary>
+        /// <param name="flashCardId"></param>
+        public FlashCardDetails(int flashCardId):this()
+        {
+            this.ReturnedFlashCard = flashCardFactory.GetFlashCard(flashCardId);
+        }
+        /// <summary>
+        /// Use only when all data is loaded.
+        /// </summary>
+        /// <param name="flashCard"></param>
+        public FlashCardDetails(FlashCard flashCard):this()
+        {
+            this.ReturnedFlashCard = flashCard;
+        }
+        /// <summary>
+        /// Use when all data from flash card is loaded. 
+        /// </summary>
+        /// <param name="flashCard"></param>
+        /// <param name="tags"></param>
+        public FlashCardDetails(FlashCard flashCard, List<string> tags) : this()
+        {
+            AllTags = new ObservableCollection<string>(tags);
+            ReturnedFlashCard = flashCard;
+        }
+        #endregion
         public FlashCard ReturnedFlashCard { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -88,6 +122,8 @@ namespace Guidance.ViewModel
         void SaveCommand()
         {
             Save = true;
+            ReturnedFlashCard.FlashCardData = new FlashCardData();
+            flashCardFactory.AddFlashCard(ReturnedFlashCard);
         }
         string textAnserw;
         public string TextAnserw

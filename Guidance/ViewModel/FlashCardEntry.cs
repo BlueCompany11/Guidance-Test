@@ -18,36 +18,12 @@ namespace Guidance.ViewModel
         public FlashCardEntry()
         {
             isFlashCardSelected = false;
-            LoadFlashCards();
+            UpdateFlashCardPreview();
         }
-        private void LoadFlashCards()
+        private void UpdateFlashCardPreview()
         {
-            var flashCardPreview = new List<FlashCardPreview>();
-            using (var flashCardRepository = new FlashCardRepository())
-            {
-                var allFlashCards = flashCardRepository.GetAll();
-                for (int i = 0; i < allFlashCards.Count; i++)
-                {
-                    //zabezpieczyc sie na wypadek braku danych
-                    flashCardPreview.Add(new FlashCardPreview(allFlashCards[i].Id));
-                    flashCardPreview.Last().Title = allFlashCards[i].Title;
-                    flashCardPreview.Last().CreationDate = allFlashCards[i].FlashCardData.CreationDate;
-                    if (allFlashCards[i].FlashCardData.LastOccurrence != null)
-                    {
-                        flashCardPreview.Last().LastOccurance = (DateTime)allFlashCards[i].FlashCardData.LastOccurrence;
-                    }
-                    else
-                    {
-                        flashCardPreview.Last().LastOccurance = default(DateTime);
-                    }
-                    var flashCardMemorizer = new FlashCardMemorizer();
-                    //repo.Context.Entry(flashCard).Collection(x => x.Tags).Load();
-                    flashCardRepository.Context.Entry(allFlashCards[i]).Reference(x => x.FlashCardData).Load();
-                    int recallVal = flashCardMemorizer.GetRecallValue(allFlashCards[i].FlashCardData);
-                    flashCardPreview.Last().RecallVal = recallVal;
-                }
-            }
-            FlashCardPreviews = new ObservableCollection<IFlashCardPreview>(flashCardPreview);
+            FlashCardPreviewFactory flashCardPreviewFactory = new FlashCardPreviewFactory();
+            FlashCardPreviews = new ObservableCollection<IFlashCardPreview>(flashCardPreviewFactory.FlashCardPreviews());
             OnPropertyChanged(nameof(FlashCardPreviews));
         }
         public ObservableCollection<IFlashCardPreview> FlashCardPreviews { get; set; }
@@ -82,24 +58,21 @@ namespace Guidance.ViewModel
                 return addFlashCardCommand ?? (addFlashCardCommand = new CommandHandler(AddFlashCard, true));
             }
         }
-        public void AddFlashCard()
-        {   //zmienic kontruktor
-            List<string> tags = new List<string>();
-            using(var repo = new TagRepository())
-            {
-                tags = repo.GetAll().Select(x => x.Tag1).Distinct().ToList();
-            }
-            var addFlashCardWindow = new FlashCardDetailsWindow(new FlashCardDetails(new FlashCard(), tags));
+        void AddFlashCard()
+        {   
+            FlashCardTagFactory flashCardTagFactory = new FlashCardTagFactory();
+            var addFlashCardWindow = new FlashCardDetailsWindow(new FlashCardDetails(new FlashCard(), flashCardTagFactory.GetAllTags()));
             addFlashCardWindow.ShowDialog();
-            if (!string.IsNullOrEmpty(addFlashCardWindow.addFlashCard.Title) && addFlashCardWindow.addFlashCard.Save)
-            {
-                addFlashCardWindow.addFlashCard.ReturnedFlashCard.FlashCardData = new FlashCardData();
-                using (var repo = new FlashCardRepository())
-                {
-                    repo.Add(addFlashCardWindow.addFlashCard.ReturnedFlashCard);
-                }
-                LoadFlashCards();
-            }
+            //if (!string.IsNullOrEmpty(addFlashCardWindow.addFlashCard.Title) && addFlashCardWindow.addFlashCard.Save)
+            //{
+            //    addFlashCardWindow.addFlashCard.ReturnedFlashCard.FlashCardData = new FlashCardData();
+            //    using (var repo = new FlashCardRepository())
+            //    {
+            //        repo.Add(addFlashCardWindow.addFlashCard.ReturnedFlashCard);
+            //    }
+            //    UpdateFlashCardPreview();
+            //}
+            UpdateFlashCardPreview();
         }
         private ICommand deleteSelectedFlashCard;
         private bool isFlashCardSelected;
@@ -110,14 +83,14 @@ namespace Guidance.ViewModel
                 return deleteSelectedFlashCard ?? (deleteSelectedFlashCard = new CommandHandler(DeleteSelectedFlashCard, isFlashCardSelected));
             }
         }
-        public void DeleteSelectedFlashCard()
+        void DeleteSelectedFlashCard()
         {
             using(var repo = new FlashCardRepository())
             {
                 repo.Delete(selectedFlashCard.Id);
             }
             SelectedFlashCard = null;
-            LoadFlashCards();
+            UpdateFlashCardPreview();
         }
         private ICommand editSelectedFlashCard;
         public ICommand EditSelectedFlashCardCommand
@@ -127,8 +100,32 @@ namespace Guidance.ViewModel
                 return editSelectedFlashCard ?? (editSelectedFlashCard = new CommandHandler(EditSelectedFlashCard, isFlashCardSelected));
             }
         }
-        public void EditSelectedFlashCard()
+
+        void EditSelectedFlashCard()
         {
+            using (var repo = new FlashCardRepository())
+            {
+                FlashCardFactory flashCardFactory = new FlashCardFactory();
+            FlashCardTagFactory flashCardTagFactory = new FlashCardTagFactory();
+            var addFlashCardWindow = new FlashCardDetailsWindow(
+                new FlashCardDetails(flashCardFactory.GetFlashCard(selectedFlashCard.Id), flashCardTagFactory.GetAllTags())
+                );
+            addFlashCardWindow.ShowDialog();
+
+                if (addFlashCardWindow.addFlashCard.Save)
+                {
+                    repo.Save(addFlashCardWindow.addFlashCard.ReturnedFlashCard);
+                }
+            }
+            UpdateFlashCardPreview();
+        }
+        ICommand startFlashCardRecall;
+        bool canStartFlashCardRecall;
+        public ICommand StartFlashCardRecall { get { return startFlashCardRecall ?? (startFlashCardRecall = new CommandHandler(StartFlashCardRecallCommand, canStartFlashCardRecall)); } }
+        void StartFlashCardRecallCommand()
+        {
+            //zablokowac mozliwosc zmiany danych
+            //2 przyciski na dole - powtorzone poprawnie lub negatywnie
             var flashCard = new FlashCard();
             List<string> tags = new List<string>();
             using (var repo = new TagRepository())
@@ -143,13 +140,8 @@ namespace Guidance.ViewModel
                 repo.Context.Entry(flashCard).Collection(x => x.FileAnserws).Load();
                 var addFlashCardWindow = new FlashCardDetailsWindow(new FlashCardDetails(flashCard, tags));
                 addFlashCardWindow.ShowDialog();
-                Console.WriteLine(addFlashCardWindow.addFlashCard.Save);
-                if (addFlashCardWindow.addFlashCard.Save)
-                {
-                    repo.Save(addFlashCardWindow.addFlashCard.ReturnedFlashCard);
-                }
+                
             }
-            LoadFlashCards();
         }
     }
 }

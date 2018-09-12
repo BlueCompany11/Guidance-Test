@@ -77,8 +77,10 @@
     <Compile Include="DataAccessLayer\TagRepository.cs" />
     <Compile Include="DataAccessLayer\TextAnserwRepository.cs" />
     <Compile Include="FlashCardModel\FlashCardDataPartial.cs" />
+    <Compile Include="FlashCardModel\FlashCardFactory.cs" />
     <Compile Include="FlashCardModel\FlashCardMemorizer.cs" />
     <Compile Include="FlashCardModel\FlashCardPartial.cs" />
+    <Compile Include="FlashCardModel\FlashCardTagFactory.cs" />
     <Compile Include="IView\IFlashCardDetails.cs" />
     <Compile Include="IView\IFlashCardEntryPage.cs" />
     <Compile Include="IView\IFlashCardPreview.cs" />
@@ -87,11 +89,12 @@
     <Compile Include="FlashCardModel\FlashCardData.cs" />
     <Compile Include="FlashCardModel\TextAnserw.cs" />
     <Compile Include="FlashCardModel\Tag.cs" />
+    <Compile Include="FlashCardModel\FlashCardPreviewFactory.cs" />
     <Compile Include="View\ButtonCloseWindow.cs" />
     <Compile Include="ViewModel\CommandHandler.cs" />
     <Compile Include="ViewModel\FlashCardDetails.cs" />
     <Compile Include="ViewModel\FlashCardEntry.cs" />
-    <Compile Include="ViewModel\FlashCardPreview.cs" />
+    <Compile Include="FlashCardModel\FlashCardPreview.cs" />
     <Page Include="GUI\FlashCardDetailsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

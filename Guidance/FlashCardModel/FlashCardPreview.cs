@@ -8,7 +8,7 @@ using Guidance.FlashCardModel;
 using Guidance.IView;
 using System.Collections.ObjectModel;
 
-namespace Guidance.ViewModel
+namespace Guidance.FlashCardModel
 {
     public class FlashCardPreview:IFlashCardPreview
     {
@@ -24,8 +24,6 @@ namespace Guidance.ViewModel
         public FlashCardPreview(int id)
         {
             Id = id;
-
         }
-
     }
 }
