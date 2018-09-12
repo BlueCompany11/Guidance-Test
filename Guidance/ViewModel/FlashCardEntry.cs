@@ -40,6 +40,11 @@ namespace Guidance.ViewModel
                     {
                         flashCardPreview.Last().LastOccurance = default(DateTime);
                     }
+                    var flashCardMemorizer = new FlashCardMemorizer();
+                    //repo.Context.Entry(flashCard).Collection(x => x.Tags).Load();
+                    flashCardRepository.Context.Entry(allFlashCards[i]).Reference(x => x.FlashCardData).Load();
+                    int recallVal = flashCardMemorizer.GetRecallValue(allFlashCards[i].FlashCardData);
+                    flashCardPreview.Last().RecallVal = recallVal;
                 }
             }
             FlashCardPreviews = new ObservableCollection<IFlashCardPreview>(flashCardPreview);
