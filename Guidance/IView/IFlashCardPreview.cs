@@ -8,9 +8,10 @@ namespace Guidance.IView
 {
     public interface IFlashCardPreview
     {
-        string Title { get; set; }
-        DateTime CreationDate { get; set; }
-        DateTime LastOccurance { get; set; }
+        string Title { get; }
+        DateTime CreationDate { get; }
+        DateTime LastOccurance { get; }
         int Id { get; }
+        int RecallVal { get; }
     }
 }

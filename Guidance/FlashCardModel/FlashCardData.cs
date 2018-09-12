@@ -13,12 +13,12 @@ namespace Guidance.FlashCardModel
         [DatabaseGenerated(DatabaseGeneratedOption.None)]//dodane
         public int FlashCardId { get; set; }
 
-        public bool? LastResult { get; set; }
+        public bool LastResult { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? LastOccurrence { get; set; }
+        public DateTime LastOccurrence { get; set; }
 
-        public int? SuccessfulAnserws { get; set; }
+        public int SuccessfulAnserws { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime CreationDate { get; set; }

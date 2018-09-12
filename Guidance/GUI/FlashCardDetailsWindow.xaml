@@ -42,7 +42,7 @@
                 </GroupBox>
                 <ComboBox Margin="3" Grid.Row="1" IsEditable="True"
                           ItemsSource="{Binding AllTags}"
-                         Text="{Binding NewTag, UpdateSourceTrigger=PropertyChanged}">
+                          Text="{Binding NewTag, UpdateSourceTrigger=PropertyChanged}">
                     <ComboBox.InputBindings>
                         <KeyBinding Command="{Binding AddTag}" Key="Return"></KeyBinding>
                     </ComboBox.InputBindings>
@@ -103,7 +103,8 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid>
-                    <ListBox Name="fileAnserwsList" ItemsSource="{Binding Path=FilesNames}"></ListBox>
+                    <ListBox Name="fileAnserwsList" ItemsSource="{Binding Path=FilesNames}">
+                    </ListBox>
                 </Grid>
                 <Grid Grid.Column="1">
                     <ListBox Name="textAnserwsList" ItemsSource="{Binding Path=TextAnserws}"></ListBox>

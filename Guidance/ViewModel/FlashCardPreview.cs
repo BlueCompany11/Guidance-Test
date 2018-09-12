@@ -18,9 +18,13 @@ namespace Guidance.ViewModel
 
         public DateTime LastOccurance { get; set; }
         public int Id { get; }
+
+        public int RecallVal { get; set; }
+
         public FlashCardPreview(int id)
         {
             Id = id;
+
         }
 
     }

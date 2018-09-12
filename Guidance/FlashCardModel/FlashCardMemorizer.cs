@@ -8,14 +8,10 @@ namespace Guidance.FlashCardModel
 {
     public class FlashCardMemorizer
     {
+        int minVal = -10000;
+        int maxVal = 10000;
         public void FlashCardsToMemorize()
         {
-            //using (FlashCardDataRepository flashCardDataRepository = new FlashCardDataRepository())
-            //{
-            //    var allFlashCardsData = flashCardDataRepository.GetAll();
-                
-            //}
-
         }
         /// <summary>
         ///  1. Sortowanie wg LastResult: jesli jest jakies na false to musi byc podane w pierwszej kolejnosci
@@ -37,5 +33,31 @@ namespace Guidance.FlashCardModel
             var results = sortedList.Select(x => x.FlashCardId);
             return results;
         }
+        public int GetRecallValue(FlashCardData flashCardData)
+        {
+            int recallValue;
+            if(flashCardData.LastOccurrence == DateTime.Today)
+            {
+                recallValue = maxVal;
+                return maxVal;
+            }
+            if (flashCardData.LastResult == false)
+            {
+                recallValue = minVal;
+                return minVal;
+            }
+            else
+            {
+                recallValue = 2 ^ flashCardData.SuccessfulAnserws - ((flashCardData.CreationDate - DateTime.Today).Days);
+            }
+            return recallValue;
+        }
+        //private int CheckIfShouldBeRecalledImmediately(FlashCardData flashCardData)
+        //{
+        //    if (flashCardData.LastResult == false)
+        //    {
+        //        return minVal;
+        //    }
+        //}
     }
 }

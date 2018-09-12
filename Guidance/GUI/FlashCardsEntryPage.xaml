@@ -24,6 +24,7 @@
                     <DataGridTextColumn Header="Tytuł" Binding="{Binding Title}" />
                     <DataGridTextColumn Header="Data utworzenia" Binding="{Binding CreationDate}" />
                     <DataGridTextColumn Header="Data ostatniego przywołania" Binding="{Binding LastOccurance}" />
+                    <DataGridTextColumn Header="Wskaźnik powtórzenia" Binding="{Binding RecallVal}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Grid Grid.Column="0" Grid.Row="1">

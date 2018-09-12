@@ -15,11 +15,11 @@ namespace Guidance.ViewModel
 {
     public class FlashCardDetails : IFlashCardDetails, INotifyPropertyChanged
     {
-        public FlashCardDetails()
-        {
-            this.ReturnedFlashCard = new FlashCard();
-        }
-        public FlashCardDetails(FlashCard flashCard) : this()
+        //public FlashCardDetails()
+        //{
+        //    this.ReturnedFlashCard = new FlashCard();
+        //}
+        public FlashCardDetails(FlashCard flashCard) //: this()
         {
             this.ReturnedFlashCard = flashCard;
             canSaveFlashCard = true;
