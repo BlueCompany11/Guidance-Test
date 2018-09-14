@@ -16,7 +16,6 @@ namespace Guidance.FlashCardModel
             Tags = new HashSet<Tag>();
         }
 
-        //[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]

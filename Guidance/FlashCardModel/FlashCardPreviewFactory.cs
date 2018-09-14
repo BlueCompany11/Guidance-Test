@@ -17,25 +17,30 @@ namespace Guidance.FlashCardModel
             using (var flashCardRepository = new FlashCardRepository())
             {
                 var allFlashCards = flashCardRepository.GetAll();
-                for (int i = 0; i < allFlashCards.Count; i++)
+                //usunac try 
+                try
                 {
-                    //zabezpieczyc sie na wypadek braku danych
-                    flashCardPreview.Add(new FlashCardPreview(allFlashCards[i].Id));
-                    flashCardPreview.Last().Title = allFlashCards[i].Title;
-                    flashCardPreview.Last().CreationDate = allFlashCards[i].FlashCardData.CreationDate;
-                    if (allFlashCards[i].FlashCardData.LastOccurrence != null)
+                    for (int i = 0; i < allFlashCards.Count; i++)
                     {
-                        flashCardPreview.Last().LastOccurance = (DateTime)allFlashCards[i].FlashCardData.LastOccurrence;
+                        //zabezpieczyc sie na wypadek braku danych
+                        flashCardPreview.Add(new FlashCardPreview(allFlashCards[i].Id));
+                        flashCardPreview.Last().Title = allFlashCards[i].Title;
+                        flashCardPreview.Last().CreationDate = allFlashCards[i].FlashCardData.CreationDate;
+                        if (allFlashCards[i].FlashCardData.LastOccurrence != null)
+                        {
+                            flashCardPreview.Last().LastOccurance = (DateTime)allFlashCards[i].FlashCardData.LastOccurrence;
+                        }
+                        else
+                        {
+                            flashCardPreview.Last().LastOccurance = default(DateTime);
+                        }
+                        var flashCardMemorizer = new FlashCardMemorizer();
+                        flashCardRepository.Context.Entry(allFlashCards[i]).Reference(x => x.FlashCardData).Load();
+                        int recallVal = flashCardMemorizer.GetRecallValue(allFlashCards[i].FlashCardData);
+                        flashCardPreview.Last().RecallVal = recallVal;
                     }
-                    else
-                    {
-                        flashCardPreview.Last().LastOccurance = default(DateTime);
-                    }
-                    var flashCardMemorizer = new FlashCardMemorizer();
-                    flashCardRepository.Context.Entry(allFlashCards[i]).Reference(x => x.FlashCardData).Load();
-                    int recallVal = flashCardMemorizer.GetRecallValue(allFlashCards[i].FlashCardData);
-                    flashCardPreview.Last().RecallVal = recallVal;
                 }
+                catch (Exception) { }
             }
             return flashCardPreview;
         }

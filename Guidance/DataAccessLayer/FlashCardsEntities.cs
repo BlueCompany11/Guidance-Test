@@ -28,7 +28,7 @@ namespace Guidance.DataAccessLayer
             modelBuilder.Entity<FlashCard>()
                 .HasMany(e => e.FileAnserws)
                 .WithRequired(e => e.FlashCard)
-                .WillCascadeOnDelete(true);
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<FlashCard>()
                 .HasOptional(e => e.FlashCardData)
@@ -37,7 +37,7 @@ namespace Guidance.DataAccessLayer
             modelBuilder.Entity<FlashCard>()
                 .HasMany(e => e.TextAnserws)
                 .WithRequired(e => e.FlashCard)
-                .WillCascadeOnDelete(true);
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<FlashCard>()
                 .HasMany(e => e.Tags)
